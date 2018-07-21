@@ -1,0 +1,6 @@
+falcon
+gunicorn
+psycopg2
+sqlalchemy
+alembic
+marshmallow

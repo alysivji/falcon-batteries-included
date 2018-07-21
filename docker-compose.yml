@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.3-alpine
+    environment:
+      POSTGRES_DB: sivdev
+      POSTGRES_USER: sivdev_user
+      POSTGRES_PASSWORD: sivdev_pass
+    ports:
+      - "9432:5432"
+  api:
+    build:
+      context: .
+    command: ["gunicorn", "app:api", "-b", "0.0.0.0:7000", "--reload", "--timeout",  "100000"]
+    environment:
+      DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    ports:
+      - "7000:7000"

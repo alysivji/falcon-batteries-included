@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  api:
+    volumes:
+      - ./.pdbrc.py:/home/sivpack/.pdbrc.py
