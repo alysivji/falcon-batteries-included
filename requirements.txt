@@ -1,6 +1,7 @@
+alembic
 falcon
 gunicorn
-psycopg2
-sqlalchemy
-alembic
 marshmallow
+psycopg2-binary
+sqlalchemy
+sqlalchemy-wrapper
