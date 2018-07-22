@@ -9,9 +9,9 @@ class SQLAlchemySessionManager:
     def __init__(self, db):
         self.db = db
 
-    def process_resource(self, req, resp, resource, params):
-        resource.db = self.db
+    def process_request(self, req, resp):
+        req.db = self.db
 
     def process_response(self, req, resp, resource, req_succeeded):
-        if hasattr(resource, "db"):
-            delattr(resource, "db")
+        if hasattr(req, "db"):
+            delattr(req, "db")

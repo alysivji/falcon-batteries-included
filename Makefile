@@ -23,7 +23,7 @@ help:
 build:
 	docker-compose build
 
-up:
+up: migrate-up
 	docker-compose up -d api db
 
 start:

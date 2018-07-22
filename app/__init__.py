@@ -3,7 +3,6 @@ from sqlalchemy_wrapper import SQLAlchemy
 
 from .config import DATABASE_URI
 from .middleware import SQLAlchemySessionManager
-from .resources.health_check import HealthCheckResource
 
 ########
 # Config
@@ -19,9 +18,4 @@ app_middleware = [
 ]
 api = falcon.API(middleware=app_middleware)
 
-
-########
-# Routes
-########
-
-api.add_route("/health-check", HealthCheckResource())
+from . import routes  # noqa
