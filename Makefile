@@ -44,6 +44,9 @@ logs:
 shell: ## Shell into web container
 	docker-compose exec api bash
 
+shell-ipython: ## Shell into ipython with falcon context
+	docker-compose exec api python shell.py
+
 shell-db: ## Shell into postgres process inside db container
 	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
 

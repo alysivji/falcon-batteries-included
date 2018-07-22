@@ -11,6 +11,7 @@ from .resources.health_check import HealthCheckResource
 
 # SQLAlchemy
 db = SQLAlchemy(DATABASE_URI)
+import app.models  # noqa
 
 # Falcon
 app_middleware = [
