@@ -50,17 +50,14 @@ shell-ipython: ## Shell into ipython with falcon context
 shell-db: ## Shell into postgres process inside db container
 	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
 
-# TODO
-migration: up ## Create migrations using flask migrate
-	docker-compose exec api alembic revision -m "$(m)"
+migration: up ## Create migrations using alembic
+	docker-compose exec api alembic revision --autogenerate -m "$(m)"
 
-# TOdo
-migrate-up: up ## Run migrations using flask migrate
+migrate-up: up ## Run migrations using alembic
 	docker-compose exec api alembic upgrade head
 
-# Todo
-migrate-down: up ## Rollback migrations using flask migrate
-	# docker-compose exec api flask db downgrade
+migrate-down: up ## Rollback migrations using alembic
+	docker-compose exec api alembic downgrade -1
 
 test: migrate
 	docker-compose exec api pytest
