@@ -1,24 +1,27 @@
 help:
-	@echo 'Makefile for managing web application                        '
-	@echo '                                                             '
-	@echo 'Usage:                                                       '
-	@echo ' make build      build images                                '
-	@echo ' make up         creates containers and starts service       '
-	@echo ' make start      starts service containers                   '
-	@echo ' make stop       stops service containers                    '
-	@echo ' make down       stops service and removes containers        '
-	@echo '                                                             '
-	@echo ' make migrate    run migrations                              '
-	@echo ' make test       run tests                                   '
-	@echo ' make test_cov   run tests with coverage.py                  '
-	@echo ' make test_fast  run tests without migrations                '
-	@echo ' make lint       run flake8 linter                           '
-	@echo '                                                             '
-	@echo ' make attach     attach to process inside service            '
-	@echo ' make logs       see container logs                          '
-	@echo ' make shell      connect to api container in new bash shell  '
-	@echo ' make dbshell    connect to postgres inside db container     '
-	@echo '                                                             '
+	@echo 'Makefile for managing web application                              '
+	@echo '                                                                   '
+	@echo 'Usage:                                                             '
+	@echo ' make build            build images                                '
+	@echo ' make up               creates containers and starts service       '
+	@echo ' make start            starts service containers                   '
+	@echo ' make stop             stops service containers                    '
+	@echo ' make down             stops service and removes containers        '
+	@echo '                                                                   '
+	@echo ' make migration        create migration m="message"                '
+	@echo ' make migrate-up       run all migration                           '
+	@echo ' make migrate-dow      roll back last migration                    '
+	@echo ' make test             run tests                                   '
+	@echo ' make test-cov         run tests with coverage.py                  '
+	@echo ' make test-fast        run tests without migrations                '
+	@echo ' make lint             run flake8 linter                           '
+	@echo '                                                                   '
+	@echo ' make attach           attach to process inside service            '
+	@echo ' make logs             see container logs                          '
+	@echo ' make shell            connect to api container in new bash shell  '
+	@echo ' make shell-ipython    connect to api container in new bash shell  '
+	@echo ' make shell-db         shell into psql inside database container   '
+	@echo '                                                                   '
 
 build:
 	docker-compose build
@@ -62,13 +65,13 @@ migrate-down: up ## Rollback migrations using alembic
 test: migrate
 	docker-compose exec api pytest
 
-test_cov: migrate
+test-cov: migrate
 	docker-compose exec api pytest --verbose --cov
 
-test_cov_view: migrate
+test-cov-view: migrate
 	docker-compose exec api pytest --cov --cov-report html && open ./htmlcov/index.html
 
-test_fast: ## Can pass in parameters using p=''
+test-fast: ## Can pass in parameters using p=''
 	docker-compose exec api pytest $(p)
 
 # Flake 8
