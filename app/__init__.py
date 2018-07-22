@@ -2,7 +2,7 @@ import falcon
 from sqlalchemy_wrapper import SQLAlchemy
 
 from .config import DATABASE_URI
-from .middleware import SQLAlchemySessionManager
+from .middleware import SerializationMiddleware, SQLAlchemySessionManager
 
 ########
 # Config
@@ -14,7 +14,8 @@ import app.models  # noqa
 
 # Falcon
 app_middleware = [
-    SQLAlchemySessionManager(db)
+    SQLAlchemySessionManager(db),
+    SerializationMiddleware(),
 ]
 api = falcon.API(middleware=app_middleware)
 

@@ -1,7 +1,5 @@
 class SQLAlchemySessionManager:
-    """
-    Create scoped session for every request and close it when request ends.
-    """
+    """Create scoped session for each request and close it before response."""
 
     def __init__(self, db):
         self.db = db
