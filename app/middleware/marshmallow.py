@@ -29,4 +29,4 @@ class SerializationMiddleware:
         except ValidationError as err:
             raise HTTPError(status.HTTP_IM_A_TEAPOT)
 
-        resp.media = result.data  # add this to the post dump
+        resp.media = result  # add this to the post dump

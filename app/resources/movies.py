@@ -17,4 +17,11 @@ class MoviesResource:
         resp._data = req.db.query(Movie).all()
 
     def on_post(self, req, resp):
-        resp.media = {"data": "healthy"}
+        if not hasattr(req, "deserialized"):
+            return
+
+        db = req.db
+        db.session.add(req.deserialized)
+        db.session.commit()
+
+        resp._data = req.deserialized
