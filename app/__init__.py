@@ -17,8 +17,7 @@ def user_loader(payload):
 
 
 auth_backend = JWTAuthBackend(user_loader, secret_key=SECRET_KEY)
-exempt_routes = ["/login", "/health-check"]
-auth_middleware = FalconAuthMiddleware(auth_backend, exempt_routes=exempt_routes)
+auth_middleware = FalconAuthMiddleware(auth_backend)
 
 # Falcon
 app_middleware = [

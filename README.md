@@ -15,3 +15,7 @@ Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-fa
 We have marshmallow to serialize objects into JSON (response) and to deserialize JSON into object (request).
 
 Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-falcon-framework/)
+
+### Authentication
+
+JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
