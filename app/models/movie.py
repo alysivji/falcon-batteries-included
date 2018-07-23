@@ -3,9 +3,7 @@ from . import BaseModel
 
 
 class Movie(BaseModel):
-    """
-    Movies Details Table
-    """
+    """Movies Details Table"""
 
     def __repr__(self):
         return f"<Movie: {self.title}>"

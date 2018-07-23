@@ -1,4 +1,4 @@
-from falcon import status_codes as status
+import falcon
 from marshmallow import ValidationError
 
 from app.exceptions import HTTPError
@@ -15,18 +15,18 @@ class SerializationMiddleware:
         try:
             result = deserializer.load(req.media)
         except ValidationError as err:
-            raise HTTPError(status.HTTP_UNPROCESSABLE_ENTITY, err.messages)
+            raise HTTPError(falcon.HTTP_UNPROCESSABLE_ENTITY, err.messages)
 
         req.deserialized = result
 
     def process_response(self, req, resp, resource, req_succeeded):
         serializer = resource.serializers[req.method.lower()]
-        if not serializer:
+        if not serializer or not hasattr(resp, "_data"):
             return
 
         try:
             result = serializer.dump(resp._data)
         except ValidationError as err:
-            raise HTTPError(status.HTTP_IM_A_TEAPOT)
+            raise HTTPError(falcon.HTTP_IM_A_TEAPOT)
 
         resp.media = result  # add this to the post dump

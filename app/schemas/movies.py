@@ -23,5 +23,12 @@ class MovieSchema(Schema):
         return Movie(**data)
 
 
+class MoviePatchSchema(Schema):
+    title = fields.Str()
+    release_year = fields.Int()
+    description = fields.Str()
+
+
 movies_list_schema = MovieSchema(many=True)
-movies_post_schema = MovieSchema()
+movies_item_schema = MovieSchema()
+movies_patch_schema = MoviePatchSchema()

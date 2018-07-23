@@ -17,3 +17,7 @@ class BaseModel(db.Model):
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
+
+    def patch(self, data: dict):
+        for key, value in data.items():
+            setattr(self, key, value)

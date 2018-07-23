@@ -16,6 +16,6 @@ class HTTPError(falcon.HTTPError):
         response_body = super().to_dict(*args, **kwargs)
 
         if self.errors is not None:
-            response_body['errors'] = self.errors
+            response_body["errors"] = self.errors
 
         return response_body
