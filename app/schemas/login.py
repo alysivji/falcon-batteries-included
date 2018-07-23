@@ -1,4 +1,4 @@
-from marshmallow import fields, post_load, Schema, validates, ValidationError
+from marshmallow import fields, post_load, Schema
 
 from app.utilities import generate_password_hash
 

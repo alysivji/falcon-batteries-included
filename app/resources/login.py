@@ -1,11 +1,13 @@
 import falcon
 
+from app import auth_backend
 from app.exceptions import HTTPError
 from app.models import User
 from app.schemas.login import login_schema
 
 
 class LoginResource:
+    auth = {"auth_disabled": True}
     deserializers = {"post": login_schema}
 
     def on_post(self, req, resp):
@@ -21,7 +23,9 @@ class LoginResource:
         )
 
         if not user:
-            raise HTTPError(falcon.HTTP_UNAUTHORIZED, errors={"message": "Login unsuccessful"})
+            raise HTTPError(
+                falcon.HTTP_UNAUTHORIZED, errors={"message": "login unsuccessful"}
+            )
 
-        # TODO send back token
-        resp.media = {"login": "successful!"}
+        jwt_token = auth_backend.get_auth_token({"id": user.id})
+        resp.media = {"message": "login successful!", "jwt": jwt_token}
