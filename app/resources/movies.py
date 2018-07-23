@@ -18,21 +18,18 @@ class MoviesResource:
         resp._data = req.db.query(Movie).all()
 
     def on_post(self, req, resp):
-        if not hasattr(req, "deserialized"):
-            return
-
         db = req.db
-        db.session.add(req.deserialized)
+        db.session.add(req._deserialized)
         db.session.commit()
 
         resp.status = falcon.HTTP_CREATED
-        resp._data = req.deserialized
+        resp._data = req._deserialized
 
 
 class MoviesItemResource:
     deserializers = {"delete": None, "get": None, "patch": movies_patch_schema}
     serializers = {
-        "delete": movies_item_schema,
+        "delete": None,
         "get": movies_item_schema,
         "patch": movies_item_schema,
     }
@@ -52,6 +49,7 @@ class MoviesItemResource:
         db.session.commit()
 
         resp.status = falcon.HTTP_NO_CONTENT
+        resp.media = {}
 
     def on_get(self, req, resp, id):
         resp.status = falcon.HTTP_OK
@@ -59,7 +57,7 @@ class MoviesItemResource:
 
     def on_patch(self, req, resp, id):
         movie = self._find_by_id(id, db=req.db)
-        movie.patch(req.deserialized)
+        movie.patch(req._deserialized)
 
         db = req.db
         db.session.add(movie)
@@ -67,3 +65,17 @@ class MoviesItemResource:
 
         resp.status = falcon.HTTP_OK
         resp._data = movie
+
+
+class MoviesBulkResource:
+    deserializers = {"post": movies_list_schema}
+    serializers = {"post": movies_list_schema}
+
+    def on_post(self, req, resp):
+        db = req.db
+        for item in req._deserialized:
+            db.session.add(item)
+        db.session.commit()
+
+        resp.status = falcon.HTTP_CREATED
+        resp._data = req._deserialized

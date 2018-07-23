@@ -26,8 +26,9 @@ help:
 build:
 	docker-compose build
 
-up: migrate-up
+up:
 	docker-compose up -d api db
+	make migrate-up
 
 start:
 	docker-compose start api db
@@ -56,10 +57,10 @@ shell-db: ## Shell into postgres process inside db container
 migration: up ## Create migrations using alembic
 	docker-compose exec api alembic revision --autogenerate -m "$(m)"
 
-migrate-up: up ## Run migrations using alembic
+migrate-up: ## Run migrations using alembic
 	docker-compose exec api alembic upgrade head
 
-migrate-down: up ## Rollback migrations using alembic
+migrate-down: ## Rollback migrations using alembic
 	docker-compose exec api alembic downgrade -1
 
 test: migrate

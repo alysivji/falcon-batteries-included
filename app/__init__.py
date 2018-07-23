@@ -4,10 +4,6 @@ from sqlalchemy_wrapper import SQLAlchemy
 from .config import DATABASE_URI
 from .middleware import SerializationMiddleware, SQLAlchemySessionManager
 
-########
-# Config
-########
-
 # SQLAlchemy
 db = SQLAlchemy(DATABASE_URI)
 import app.models  # noqa

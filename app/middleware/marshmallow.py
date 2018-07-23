@@ -17,7 +17,7 @@ class SerializationMiddleware:
         except ValidationError as err:
             raise HTTPError(falcon.HTTP_UNPROCESSABLE_ENTITY, err.messages)
 
-        req.deserialized = result
+        req._deserialized = result
 
     def process_response(self, req, resp, resource, req_succeeded):
         serializer = resource.serializers[req.method.lower()]
