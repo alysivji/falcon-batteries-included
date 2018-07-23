@@ -14,11 +14,13 @@ class MoviesResource:
     serializers = {"get": movies_list_schema, "post": movies_item_schema}
 
     def on_get(self, req, resp):
+        db = req.context["db"]
+
         resp.status = falcon.HTTP_OK
-        resp._data = req.db.query(Movie).all()
+        resp._data = db.query(Movie).all()
 
     def on_post(self, req, resp):
-        db = req.db
+        db = req.context["db"]
         db.session.add(req._deserialized)
         db.session.commit()
 
@@ -38,9 +40,8 @@ class MoviesItemResource:
         return movie
 
     def on_delete(self, req, resp, id):
-        movie = self._find_by_id(id, db=req.db)
-
-        db = req.db
+        db = req.context["db"]
+        movie = self._find_by_id(id, db=db)
         db.session.delete(movie)
         db.session.commit()
 
@@ -48,14 +49,15 @@ class MoviesItemResource:
         resp.media = {}
 
     def on_get(self, req, resp, id):
+        db = req.context["db"]
+
         resp.status = falcon.HTTP_OK
-        resp._data = self._find_by_id(id, db=req.db)
+        resp._data = self._find_by_id(id, db=db)
 
     def on_patch(self, req, resp, id):
-        movie = self._find_by_id(id, db=req.db)
+        db = req.context["db"]
+        movie = self._find_by_id(id, db=db)
         movie.patch(req._deserialized)
-
-        db = req.db
         db.session.add(movie)
         db.session.commit()
 
@@ -68,7 +70,7 @@ class MoviesBulkResource:
     serializers = {"post": movies_list_schema}
 
     def on_post(self, req, resp):
-        db = req.db
+        db = req.context["db"]
         for item in req._deserialized:
             db.session.add(item)
         db.session.commit()

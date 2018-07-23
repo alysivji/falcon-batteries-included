@@ -10,7 +10,7 @@ class UsersResource:
     serializers = {"post": users_item_schema}
 
     def on_post(self, req, resp):
-        db = req.db
+        db = req.context["db"]
         db.session.add(req._deserialized)
         db.session.commit()
 
@@ -30,9 +30,8 @@ class UsersItemResource:
         return user
 
     def on_delete(self, req, resp, id):
-        user = self._find_by_id(id, db=req.db)
-
-        db = req.db
+        db = req.context["db"]
+        user = self._find_by_id(id, db=db)
         db.session.delete(user)
         db.session.commit()
 
@@ -40,14 +39,15 @@ class UsersItemResource:
         resp.media = {}
 
     def on_get(self, req, resp, id):
+        db = req.context["db"]
+
         resp.status = falcon.HTTP_OK
-        resp._data = self._find_by_id(id, db=req.db)
+        resp._data = self._find_by_id(id, db=db)
 
     def on_patch(self, req, resp, id):
-        user = self._find_by_id(id, db=req.db)
+        db = req.context["db"]
+        user = self._find_by_id(id, db=db)
         user.patch(req._deserialized)
-
-        db = req.db
         db.session.add(user)
         db.session.commit()
 

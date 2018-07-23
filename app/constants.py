@@ -1,1 +1,3 @@
-CURRENT_YEAR = 2016
+import datetime
+
+CURRENT_YEAR = datetime.date.today().year

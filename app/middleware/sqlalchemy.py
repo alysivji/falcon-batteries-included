@@ -5,8 +5,8 @@ class SQLAlchemySessionManager:
         self.db = db
 
     def process_request(self, req, resp):
-        req.db = self.db
+        req.context["db"] = self.db
 
     def process_response(self, req, resp, resource, req_succeeded):
-        if hasattr(req, "db"):
-            delattr(req, "db")
+        if "db" in req.context:
+            req.context.pop("db")
