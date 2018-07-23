@@ -29,4 +29,4 @@ class SerializationMiddleware:
         except ValidationError as err:
             raise HTTPError(falcon.HTTP_IM_A_TEAPOT)
 
-        resp.media = result  # add this to the post dump
+        resp.media = result
