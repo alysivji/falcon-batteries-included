@@ -8,7 +8,9 @@ class SerializationMiddleware:
     """JSON <=> SQLAlchemy"""
 
     def process_resource(self, req, resp, resource, params):
-        if req.method.lower() not in resource.deserializers:
+        deserialization_required = (hasattr(resource, "deserializers")
+                                    and req.method.lower() in resource.deserializers)
+        if not deserialization_required:
             return
 
         deserializer = resource.deserializers[req.method.lower()]
@@ -20,7 +22,8 @@ class SerializationMiddleware:
         req._deserialized = result
 
     def process_response(self, req, resp, resource, req_succeeded):
-        serialization_required = (req.method.lower() in resource.serializers
+        serialization_required = (hasattr(resource, "serializers")
+                                  and req.method.lower() in resource.serializers
                                   and hasattr(resp, "_data"))
         if not serialization_required:
             return

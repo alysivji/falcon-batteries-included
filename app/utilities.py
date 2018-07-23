@@ -8,7 +8,3 @@ def _hash_function(value):
 
 def generate_password_hash(password):
     return _hash_function(password)
-
-
-def check_password_hash(hash, password):
-    return hash == _hash_function(password)

@@ -48,6 +48,9 @@ logs:
 shell: ## Shell into web container
 	docker-compose exec api bash
 
+shell-root:  # Shell into web container as root
+	docker-compose exec -u root api bash
+
 shell-ipython: ## Shell into ipython with falcon context
 	docker-compose exec api python shell.py
 
