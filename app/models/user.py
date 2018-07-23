@@ -9,6 +9,9 @@ class User(BaseModel):
     User table
     """
 
+    def __repr__(self):
+        return f"<User: {self.email}>"
+
     # Attributes
     email = db.Column(db.String(255), index=True, unique=True)
     first_name = db.Column(db.String(255))

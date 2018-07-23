@@ -10,7 +10,7 @@ from app.schemas.movies import (
 
 
 class MoviesResource:
-    deserializers = {"get": None, "post": movies_item_schema}
+    deserializers = {"post": movies_item_schema}
     serializers = {"get": movies_list_schema, "post": movies_item_schema}
 
     def on_get(self, req, resp):
@@ -27,12 +27,8 @@ class MoviesResource:
 
 
 class MoviesItemResource:
-    deserializers = {"delete": None, "get": None, "patch": movies_patch_schema}
-    serializers = {
-        "delete": None,
-        "get": movies_item_schema,
-        "patch": movies_item_schema,
-    }
+    deserializers = {"patch": movies_patch_schema}
+    serializers = {"get": movies_item_schema, "patch": movies_item_schema}
 
     def _find_by_id(self, id, db):
         """Helper method to find movie or return 404"""

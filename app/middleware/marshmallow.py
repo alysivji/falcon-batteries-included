@@ -8,10 +8,10 @@ class SerializationMiddleware:
     """JSON <=> SQLAlchemy"""
 
     def process_resource(self, req, resp, resource, params):
-        deserializer = resource.deserializers[req.method.lower()]
-        if not deserializer:
+        if req.method.lower() not in resource.deserializers:
             return
 
+        deserializer = resource.deserializers[req.method.lower()]
         try:
             result = deserializer.load(req.media)
         except ValidationError as err:
@@ -20,13 +20,16 @@ class SerializationMiddleware:
         req._deserialized = result
 
     def process_response(self, req, resp, resource, req_succeeded):
-        serializer = resource.serializers[req.method.lower()]
-        if not serializer or not hasattr(resp, "_data"):
+        serialization_required = (req.method.lower() in resource.serializers
+                                  and hasattr(resp, "_data"))
+        if not serialization_required:
             return
 
+        serializer = resource.serializers[req.method.lower()]
         try:
             result = serializer.dump(resp._data)
         except ValidationError as err:
-            raise HTTPError(falcon.HTTP_IM_A_TEAPOT)
+            # TODO figure out when this gets hit. need better unit tests
+            raise HTTPError(falcon.HTTP_IM_A_TEAPOT, err.messages)
 
         resp.media = result

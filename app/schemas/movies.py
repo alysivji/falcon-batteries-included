@@ -29,6 +29,6 @@ class MoviePatchSchema(Schema):
     description = fields.Str()
 
 
-movies_list_schema = MovieSchema(many=True)
 movies_item_schema = MovieSchema()
+movies_list_schema = MovieSchema(many=True)
 movies_patch_schema = MoviePatchSchema()
