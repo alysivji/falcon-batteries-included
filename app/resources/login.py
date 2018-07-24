@@ -28,4 +28,6 @@ class LoginResource:
             )
 
         jwt_token = auth_backend.get_auth_token({"id": user.id})
+
+        resp.status = falcon.HTTP_OK
         resp.media = {"message": "login successful!", "jwt": jwt_token}

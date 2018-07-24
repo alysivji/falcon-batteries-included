@@ -1,8 +1,10 @@
 alembic
 falcon
 falcon-auth
+falcon-swagger-ui
 gunicorn
 marshmallow==3.0.0b12
 psycopg2-binary
+py2swagger
 sqlalchemy
 sqlalchemy-wrapper

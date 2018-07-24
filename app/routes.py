@@ -2,16 +2,10 @@ from . import api
 
 from .resources.health_check import HealthCheckResource
 from .resources.login import LoginResource
-from .resources.movies import (
-    MoviesBulkResource,
-    MoviesItemResource,
-    MoviesResource,
-)
+from .resources.movies import MoviesBulkResource, MoviesItemResource, MoviesResource
 from .resources.ratings import RateResource
-from .resources.users import (
-    UsersItemResource,
-    UsersResource
-)
+from .resources.users import UsersItemResource, UsersResource
+from .resources.swagger import Py2SwaggerResource
 
 api.add_route("/health-check", HealthCheckResource())
 
@@ -28,3 +22,4 @@ api.add_route("/users/{id:int}", UsersItemResource())
 
 # miscellaneous
 api.add_route("/login", LoginResource())
+api.add_route("/py2swagger", Py2SwaggerResource())
