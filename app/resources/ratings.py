@@ -1,8 +1,7 @@
 import falcon
 
-from app.models import Movie, Rating
+from app.models import Rating
 from app.schemas.ratings import rating_item_schema
-from app.utilities import find_item_by_id
 
 
 class RateResource:
@@ -11,10 +10,9 @@ class RateResource:
     def on_post(self, req, resp, id):
         db = req.context["db"]
         user = req.context["user"]
-        movie = find_item_by_id(db=db, model=Movie, id=id)
         rating = req._deserialized["rating"]
 
-        user_rating = Rating(rating=rating, user=user, movie=movie)
+        user_rating = Rating(rating=rating, user=user, movie_id=id)
         db.session.add(user_rating)
         db.session.commit()
 
