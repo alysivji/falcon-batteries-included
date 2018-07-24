@@ -7,6 +7,7 @@ from .resources.movies import (
     MoviesItemResource,
     MoviesResource,
 )
+from .resources.ratings import RateResource
 from .resources.users import (
     UsersItemResource,
     UsersResource
@@ -18,6 +19,8 @@ api.add_route("/health-check", HealthCheckResource())
 api.add_route("/movies", MoviesResource())
 api.add_route("/movies/{id:int}", MoviesItemResource())
 api.add_route("/movies/bulk", MoviesBulkResource())
+
+api.add_route("/movies/{id:int}/rate", RateResource())
 
 # user CRUD
 api.add_route("/users", UsersResource())

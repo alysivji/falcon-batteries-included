@@ -1,4 +1,5 @@
 class HealthCheckResource:
+    auth = {"auth_disabled": True}
+
     def on_get(self, req, resp):
-        auth = {"auth_disabled": True}
         resp.media = {"service": "healthy"}
