@@ -5,9 +5,7 @@ from . import BaseModel
 
 
 class User(BaseModel):
-    """
-    User table
-    """
+    """User table"""
 
     def __repr__(self):
         return f"<User: {self.email}>"

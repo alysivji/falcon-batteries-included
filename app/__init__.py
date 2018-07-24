@@ -9,13 +9,8 @@ from .middleware import SerializationMiddleware, SQLAlchemySessionManager
 db = SQLAlchemy(DATABASE_URI)
 from app import models  # noqa
 
-
-# JWT Authentication
-def user_loader(payload):
-    user = payload["user"]
-    return db.query(models.User.id == user["id"]).first()
-
-
+# Authentication
+from .utilities import user_loader  # noqa
 auth_backend = JWTAuthBackend(user_loader, secret_key=SECRET_KEY)
 auth_middleware = FalconAuthMiddleware(auth_backend)
 

@@ -3,9 +3,7 @@ from . import BaseModel
 
 
 class Rating(BaseModel):
-    """
-    Movie Ratings for user
-    """
+    """Movie ratings for user"""
 
     # Attributes
     movie_id = db.Column(

@@ -1,12 +1,12 @@
 import falcon
 
-from app.exceptions import HTTPError
 from app.models import Movie
 from app.schemas.movies import (
     movies_item_schema,
     movies_list_schema,
     movies_patch_schema,
 )
+from app.utilities import find_item_by_id
 
 
 class MoviesResource:
@@ -32,16 +32,9 @@ class MoviesItemResource:
     deserializers = {"patch": movies_patch_schema}
     serializers = {"get": movies_item_schema, "patch": movies_item_schema}
 
-    def _find_by_id(self, id, db):
-        """Helper method to find movie or return 404"""
-        movie = db.query(Movie).get(id)
-        if not movie:
-            raise HTTPError(falcon.HTTP_404, errors={"id": "does not exist"})
-        return movie
-
     def on_delete(self, req, resp, id):
         db = req.context["db"]
-        movie = self._find_by_id(id, db=db)
+        movie = find_item_by_id(db=db, model=Movie, id=id)
         db.session.delete(movie)
         db.session.commit()
 
@@ -50,13 +43,14 @@ class MoviesItemResource:
 
     def on_get(self, req, resp, id):
         db = req.context["db"]
+        movie = find_item_by_id(db=db, model=Movie, id=id)
 
         resp.status = falcon.HTTP_OK
-        resp._data = self._find_by_id(id, db=db)
+        resp._data = movie
 
     def on_patch(self, req, resp, id):
         db = req.context["db"]
-        movie = self._find_by_id(id, db=db)
+        movie = find_item_by_id(db=db, model=Movie, id=id)
         movie.patch(req._deserialized)
         db.session.add(movie)
         db.session.commit()

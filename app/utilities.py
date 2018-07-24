@@ -1,10 +1,25 @@
+"""Collection of utility functions"""
+
 import hashlib
 
+import falcon
 
-def _hash_function(value):
-    """Hash Function"""
-    return hashlib.md5(value.encode("utf-8")).hexdigest()
+from . import db
+from .exceptions import HTTPError
+from .models import User
+
+
+def find_item_by_id(db, model, id):
+    item = db.query(model).get(id)
+    if not item:
+        raise HTTPError(falcon.HTTP_404, errors={"id": "does not exist"})
+    return item
 
 
 def generate_password_hash(password):
-    return _hash_function(password)
+    return hashlib.md5(password.encode("utf-8")).hexdigest()
+
+
+def user_loader(payload):
+    user = payload["user"]
+    return db.query(User).filter(User.id == user["id"]).first()
