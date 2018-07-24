@@ -1,11 +1,12 @@
 import falcon
 
-from app.exceptions import HTTPError
 from app.models import User
 from app.schemas.users import users_item_schema, users_patch_schema
+from app.utilities import find_item_by_id
 
 
 class UsersResource:
+    auth = {'exempt_methods': ['POST']}
     deserializers = {"post": users_item_schema}
     serializers = {"post": users_item_schema}
 
@@ -22,16 +23,9 @@ class UsersItemResource:
     deserializers = {"patch": users_patch_schema}
     serializers = {"get": users_item_schema, "patch": users_item_schema}
 
-    def _find_by_id(self, id, db):
-        """Helper method to find user or return 404"""
-        user = db.query(User).get(id)
-        if not user:
-            raise HTTPError(falcon.HTTP_404, errors={"id": "does not exist"})
-        return user
-
     def on_delete(self, req, resp, id):
         db = req.context["db"]
-        user = self._find_by_id(id, db=db)
+        user = find_item_by_id(db=db, model=User, id=id)
         db.session.delete(user)
         db.session.commit()
 
@@ -42,11 +36,11 @@ class UsersItemResource:
         db = req.context["db"]
 
         resp.status = falcon.HTTP_OK
-        resp._data = self._find_by_id(id, db=db)
+        resp._data = find_item_by_id(db=db, model=User, id=id)
 
     def on_patch(self, req, resp, id):
         db = req.context["db"]
-        user = self._find_by_id(id, db=db)
+        user = find_item_by_id(db=db, model=User, id=id)
         user.patch(req._deserialized)
         db.session.add(user)
         db.session.commit()

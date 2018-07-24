@@ -7,19 +7,19 @@ from .resources.ratings import RateResource
 from .resources.users import UsersItemResource, UsersResource
 from .resources.swagger import Py2SwaggerResource
 
+# miscellaneous
 api.add_route("/health-check", HealthCheckResource())
+api.add_route("/login", LoginResource())
+api.add_route("/py2swagger", Py2SwaggerResource())
 
 # movies CRUD with bulk add endpoint
 api.add_route("/movies", MoviesResource())
 api.add_route("/movies/{id:int}", MoviesItemResource())
 api.add_route("/movies/bulk", MoviesBulkResource())
 
+# rate movie endpoint
 api.add_route("/movies/{id:int}/rate", RateResource())
 
 # user CRUD
 api.add_route("/users", UsersResource())
 api.add_route("/users/{id:int}", UsersItemResource())
-
-# miscellaneous
-api.add_route("/login", LoginResource())
-api.add_route("/py2swagger", Py2SwaggerResource())
