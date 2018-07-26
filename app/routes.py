@@ -5,21 +5,33 @@ from .resources.login import LoginResource
 from .resources.movies import MoviesBulkResource, MoviesItemResource, MoviesResource
 from .resources.ratings import RateResource
 from .resources.users import UsersItemResource, UsersResource
-from .resources.swagger import Py2SwaggerResource
+from .resources.swagger import ApiSpecResource
 
 # miscellaneous
 api.add_route("/health-check", HealthCheckResource())
-api.add_route("/login", LoginResource())
-api.add_route("/py2swagger", Py2SwaggerResource())
+api.add_route("/apispec", ApiSpecResource())
 
-# movies CRUD with bulk add endpoint
-api.add_route("/movies", MoviesResource())
-api.add_route("/movies/{id:int}", MoviesItemResource())
-api.add_route("/movies/bulk", MoviesBulkResource())
+# login resource
+login_resource = LoginResource()
+api.add_route("/login", login_resource)
+
+# movies
+movies_resource = MoviesResource()
+api.add_route("/movies", movies_resource)
+
+movies_item_resource = MoviesItemResource()
+api.add_route("/movies/{id:int}", movies_item_resource)
+
+movies_bulk_resource = MoviesBulkResource()
+api.add_route("/movies/bulk", movies_bulk_resource)
 
 # rate movie endpoint
-api.add_route("/movies/{id:int}/rate", RateResource())
+rate_movie_resource = RateResource()
+api.add_route("/movies/{id:int}/rate", rate_movie_resource)
 
-# user CRUD
-api.add_route("/users", UsersResource())
-api.add_route("/users/{id:int}", UsersItemResource())
+# users
+users_resource = UsersResource()
+api.add_route("/users", users_resource)
+
+users_item_resource = UsersItemResource()
+api.add_route("/users/{id:int}", users_item_resource)
