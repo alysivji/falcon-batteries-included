@@ -1,4 +1,4 @@
-FROM python:3.7.0-slim-stretch
+FROM python:3.7.0-stretch
 
 LABEL maintainer="Aly Sivji <alysivji@gmail.com>" \
     description="Development image for batteries included Falcon project"

@@ -24,10 +24,9 @@ JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
 
 ### Documentation [WIP]
 
-Using [py2swagger](https://github.com/Arello-Mobile/py2swagger/) to generate `swagger.json`. Serving with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
+Created an [apispec](https://github.com/marshmallow-code/apispec) plugin for Falcon to generate the `swagger.json` schema. Serving with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
 
-* Would be nice to have a plugin for [apispec](https://github.com/marshmallow-code/apispec)
-  * marshmallow support FTW!
+* update docs with marshmallow schemas
 * Like the format of [ReDoc](https://github.com/Rebilly/ReDoc), but would have to serve up a static site
   * create an extension to serve (like falcon-swagger-ui)
 
