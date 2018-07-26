@@ -54,6 +54,8 @@ class MoviesResource:
                 schema: MovieSchema
             401:
                 description: Unauthorized
+            422:
+                description: Input body formatting issue
         """
         db = req.context["db"]
         db.session.add(req._deserialized)
@@ -73,8 +75,6 @@ class MoviesItemResource:
         summary: Delete movie from database
         tags:
             - Movie
-        consumes:
-            - application/json
         produces:
             - application/json
         responses:
@@ -99,8 +99,6 @@ class MoviesItemResource:
         summary: Get movie from database
         tags:
             - Movie
-        consumes:
-            - application/json
         produces:
             - application/json
         responses:
@@ -139,6 +137,8 @@ class MoviesItemResource:
                 description: Unauthorized
             404:
                 description: Movie does not exist
+            422:
+                description: Input body formatting issue
         """
         db = req.context["db"]
         movie = find_item_by_id(db=db, model=Movie, id=id)
@@ -177,6 +177,8 @@ class MoviesBulkResource:
                     items: MovieSchema
             401:
                 description: Unauthorized
+            422:
+                description: Input body formatting issue
         """
         db = req.context["db"]
         for item in req._deserialized:

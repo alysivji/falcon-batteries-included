@@ -14,6 +14,7 @@ from .schemas import (
     MoviePatchSchema,
     RatingSchema,
     UserSchema,
+    UserPatchSchema,
 )
 
 # set marshmallow schemas
@@ -22,6 +23,7 @@ spec.definition("Movie", schema=MovieSchema)
 spec.definition("MoviePatch", schema=MoviePatchSchema)
 spec.definition("Rating", schema=RatingSchema)
 spec.definition("User", schema=UserSchema)
+spec.definition("UserPatch", schema=UserPatchSchema)
 
 # parse docstrings for routes
 spec.add_path(resource=login_resource)
