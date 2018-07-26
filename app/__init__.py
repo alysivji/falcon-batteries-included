@@ -1,4 +1,5 @@
 from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
 import falcon
 from falcon_auth import FalconAuthMiddleware, JWTAuthBackend
 from falcon_swagger_ui import register_swaggerui_app
@@ -31,10 +32,8 @@ spec = APISpec(
     title="Movie Recommendation",
     version="0.0.1",
     openapi_version="2.0",
-    info=dict(
-        description="An example project API"
-    ),
-    plugins=[FalconPlugin(api)]
+    info=dict(description="An example project API"),
+    plugins=[FalconPlugin(api), MarshmallowPlugin()],
 )
 
 SWAGGERUI_URL = "/swagger"

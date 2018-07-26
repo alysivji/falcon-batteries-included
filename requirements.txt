@@ -1,5 +1,5 @@
 alembic
-git+git://github.com/marshmallow-code/apispec.git#master
+git+git://github.com/marshmallow-code/apispec.git@master
 falcon
 falcon-auth
 falcon-swagger-ui

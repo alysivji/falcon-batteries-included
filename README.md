@@ -22,11 +22,10 @@ Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-fa
 
 JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
 
-### Documentation [WIP]
+### Documentation
 
 Created an [apispec](https://github.com/marshmallow-code/apispec) plugin for Falcon to generate the `swagger.json` schema. Serving with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
 
-* update docs with marshmallow schemas
 * Like the format of [ReDoc](https://github.com/Rebilly/ReDoc), but would have to serve up a static site
   * create an extension to serve (like falcon-swagger-ui)
 

@@ -8,9 +8,22 @@ from .routes import (
     users_item_resource,
     users_resource,
 )
+from .schemas import (
+    LoginSchema,
+    MovieSchema,
+    MoviePatchSchema,
+    RatingSchema,
+    UserSchema,
+)
 
+# set marshmallow schemas
+spec.definition("Login", schema=LoginSchema)
+spec.definition("Movie", schema=MovieSchema)
+spec.definition("MoviePatch", schema=MoviePatchSchema)
+spec.definition("Rating", schema=RatingSchema)
+spec.definition("User", schema=UserSchema)
 
-# apispec documentation
+# parse docstrings for routes
 spec.add_path(resource=login_resource)
 spec.add_path(resource=movies_resource)
 spec.add_path(resource=movies_item_resource)
