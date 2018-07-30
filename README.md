@@ -16,6 +16,8 @@ Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-fa
 
 We have marshmallow to serialize objects into JSON (response) and to deserialize JSON into object (request).
 
+* [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate adding
+
 Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-falcon-framework/)
 
 ### Authentication
@@ -50,7 +52,7 @@ Created an [apispec](https://github.com/marshmallow-code/apispec) plugin for Fal
     </style>
   </head>
   <body>
-    <redoc spec-url='/py2swagger' hide-loading></redoc>
+    <redoc spec-url='/apispec' hide-loading></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 alembic
-git+git://github.com/marshmallow-code/apispec.git@master
+apispec>=1.0.0b1
 falcon
+falcon-apispec
 falcon-auth
 falcon-swagger-ui
 gunicorn

@@ -1,13 +1,13 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 import falcon
+from falcon_apispec import FalconPlugin
 from falcon_auth import FalconAuthMiddleware, JWTAuthBackend
 from falcon_swagger_ui import register_swaggerui_app
 from sqlalchemy_wrapper import SQLAlchemy
 
 from .config import DATABASE_URI, SECRET_KEY
 from .middleware import SerializationMiddleware, SQLAlchemySessionManager
-from .plugins.falcon_apispec import FalconPlugin
 
 # SQLAlchemy
 db = SQLAlchemy(DATABASE_URI)
