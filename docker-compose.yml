@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # infrastructure
   db:
     image: postgres:10.3-alpine
     environment:
@@ -11,6 +12,8 @@ services:
       - "9432:5432"
   redis:
     image: redis:4.0-alpine
+
+  # web app
   api:
     build:
       context: .
@@ -29,15 +32,8 @@ services:
     tty: true
     ports:
       - "7000:7000"
-  worker:
-    build:
-      context: .
-    command: ["python", "/app/scripts/worker.py"]
-    deploy:
-      mode: replicated
-      replicas: 1
-    volumes:
-      - .:/app
+
+  # task queue
   rq-dash:
     image: python:3.7-alpine3.8
     environment:
@@ -47,3 +43,12 @@ services:
     ports:
       - "9181:9181"
     command: ["/app/rq-dashboard/entrypoint.sh"]
+  worker:
+    build:
+      context: .
+    command: ["python", "/app/scripts/worker.py"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - .:/app
