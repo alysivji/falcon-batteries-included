@@ -66,13 +66,13 @@ migrate-up: ## Run migrations using alembic
 migrate-down: ## Rollback migrations using alembic
 	docker-compose exec api alembic downgrade -1
 
-test: migrate
+test: migrate-up
 	docker-compose exec api pytest
 
-test-cov: migrate
+test-cov: migrate-up
 	docker-compose exec api pytest --verbose --cov
 
-test-cov-view: migrate
+test-cov-view: migrate-up
 	docker-compose exec api pytest --cov --cov-report html && open ./htmlcov/index.html
 
 test-fast: ## Can pass in parameters using p=''

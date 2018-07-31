@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: sivdev_pass
     ports:
       - "9432:5432"
+  redis:
+    image: redis:4.0-alpine
   api:
     build:
       context: .
@@ -18,9 +20,20 @@ services:
       PYTHONPATH: .
     depends_on:
       - db
+      - redis
+      - worker
     volumes:
       - .:/app
     stdin_open: true
     tty: true
     ports:
       - "7000:7000"
+  worker:
+    build:
+      context: .
+    command: ["rq", "worker", "--url", "redis://redis:6379"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - .:/app

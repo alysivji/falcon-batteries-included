@@ -24,12 +24,21 @@ Adapted from [eshlox](https://eshlox.net/2017/07/28/integrate-sqlalchemy-with-fa
 
 JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
 
+### Asynchronous Task Queue
+
+Using [rq](https://github.com/rq/rq) with redis to have tasks running.
+
+- [ ] push out task to database which is a persistent store of what's been done or not
+- [ ] [custom worker script](http://python-rq.org/docs/workers/)
+- [ ] [config file](http://python-rq.org/docs/workers/)
+- [ ] [rq-dasbhoard](https://github.com/eoranged/rq-dashboard)
+
 ### Documentation
 
-Created an [apispec](https://github.com/marshmallow-code/apispec) plugin for Falcon to generate the `swagger.json` schema. Serving with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
+Created an [apispec](https://github.com/marshmallow-code/apispec) plugin for Falcon to generate the `swagger.json` schema, [falcon-apispec](https://github.com/alysivji/falcon-apispec). Serving with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
 
 * Like the format of [ReDoc](https://github.com/Rebilly/ReDoc), but would have to serve up a static site
-  * create an extension to serve (like falcon-swagger-ui)
+   - [ ] create an extension to serve (like falcon-swagger-ui) or add to flask swagger
 
 ```html
 <!DOCTYPE html>
