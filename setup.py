@@ -8,7 +8,7 @@ setup(
     author="Aly Sivji",
     author_email="alysivji@gmail.com",
     classifiers=["Programming Language :: Python :: 3.6"],
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(exclude=["scripts", "tests"]),
     install_requires=[""],
     download_url="https://github.com/alysivji/falcon-batteries-included",
 )

@@ -52,7 +52,7 @@ shell-root:  # Shell into web container as root
 	docker-compose exec -u root api bash
 
 shell-ipython: ## Shell into ipython with falcon context
-	docker-compose exec api python shell.py
+	docker-compose exec api python /app/scripts/ipython_shell.py
 
 shell-db: ## Shell into postgres process inside db container
 	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"

@@ -28,10 +28,14 @@ JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
 
 Using [rq](https://github.com/rq/rq) with redis to have tasks running.
 
+Send email to new user... well fake it for now
+
 - [ ] push out task to database which is a persistent store of what's been done or not
-- [ ] [custom worker script](http://python-rq.org/docs/workers/)
+- [ ] [custom worker script](http://python-rq.org/docs/workers/) | [more](https://realpython.com/flask-by-example-implementing-a-redis-task-queue/)
 - [ ] [config file](http://python-rq.org/docs/workers/)
-- [ ] [rq-dasbhoard](https://github.com/eoranged/rq-dashboard)
+- [ ] [rq-dasbhoard](https://github.com/eoranged/rq-dashboard) | [in container](https://testdriven.io/asynchronous-tasks-with-flask-and-redis-queue)
+- [ ] [rq-scheduler](https://github.com/rq/rq-scheduler)
+- [ ] [miguel grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxii-background-jobs)
 
 ### Documentation
 

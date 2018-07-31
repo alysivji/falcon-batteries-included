@@ -31,7 +31,7 @@ services:
   worker:
     build:
       context: .
-    command: ["rq", "worker", "--url", "redis://redis:6379"]
+    command: ["python", "/app/scripts/worker.py"]
     deploy:
       mode: replicated
       replicas: 1
