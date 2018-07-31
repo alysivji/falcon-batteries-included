@@ -21,6 +21,7 @@ help:
 	@echo ' make shell            connect to api container in new bash shell  '
 	@echo ' make shell-ipython    connect to api container in new bash shell  '
 	@echo ' make shell-db         shell into psql inside database container   '
+	@echo ' make view-dash        view task queue dashboardd                  '
 	@echo '                                                                   '
 
 build:
@@ -77,6 +78,9 @@ test-cov-view: migrate-up
 
 test-fast: ## Can pass in parameters using p=''
 	docker-compose exec api pytest $(p)
+
+view-dash:
+	open http://0.0.0.0:9181/
 
 # Flake 8
 # options: http://flake8.pycqa.org/en/latest/user/options.html

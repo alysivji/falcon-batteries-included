@@ -45,7 +45,7 @@ services:
   worker:
     build:
       context: .
-    command: ["python", "/app/scripts/worker.py"]
+    command: ["python", "/app/scripts/start_worker.py"]
     deploy:
       mode: replicated
       replicas: 1

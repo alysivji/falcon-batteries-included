@@ -32,7 +32,6 @@ redis + [rq](https://github.com/rq/rq).
 
 - [ ] push out task to database which is a persistent store of what's been done or not
 - [ ] [custom worker script](http://python-rq.org/docs/workers/) | [more](https://realpython.com/flask-by-example-implementing-a-redis-task-queue/)
-- [ ] [config file](http://python-rq.org/docs/workers/)
 - [ ] [rq-scheduler](https://github.com/rq/rq-scheduler)
 - [ ] [miguel grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxii-background-jobs)
 
