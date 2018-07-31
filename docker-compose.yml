@@ -35,14 +35,13 @@ services:
 
   # task queue
   rq-dash:
-    image: python:3.7-alpine3.8
+    build:
+      context: ./rq-dashboard/
     environment:
       RQ_DASHBOARD_REDIS_URL: redis://redis:6379
-    volumes:
-      - .:/app
     ports:
       - "9181:9181"
-    command: ["/app/rq-dashboard/entrypoint.sh"]
+    command: ["rq-dashboard"]
   worker:
     build:
       context: .
