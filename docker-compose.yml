@@ -25,7 +25,7 @@ services:
       - db
       - redis
       - worker
-      - rq-dash
+      # - rq-dash
     volumes:
       - .:/app
     stdin_open: true
@@ -45,6 +45,8 @@ services:
   worker:
     build:
       context: .
+    environment:
+      REDIS_URL: redis://redis:6379
     command: ["python", "/app/scripts/start_worker.py"]
     deploy:
       mode: replicated

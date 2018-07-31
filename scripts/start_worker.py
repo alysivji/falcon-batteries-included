@@ -1,3 +1,5 @@
+import os
+
 import redis
 from rq import Connection, Queue, Worker
 
@@ -5,7 +7,9 @@ from rq import Connection, Queue, Worker
 # http://python-rq.org/docs/exceptions/
 # figure out logging
 
-redis_conn = redis.StrictRedis(host="redis", port=6379, db=0)
+
+REDIS_URI = os.getenv("REDIS_URL", "redis://redis:6379")
+redis_conn = redis.StrictRedis.from_url(REDIS_URI)
 
 qs = [Queue(connection=redis_conn)]
 
