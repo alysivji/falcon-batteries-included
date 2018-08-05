@@ -46,3 +46,7 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
   * Load database (well, declarative base) into the request object
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
+
+### Static Analysis
+
+* Added [mypy](https://mypy.readthedocs.io/en/latest/index.html) to CI pipeline
