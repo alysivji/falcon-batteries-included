@@ -28,6 +28,8 @@ JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
 
 redis + [rq](https://github.com/rq/rq).
 
+[rq-scheduler](https://github.com/rq/rq-scheduler) to schedule jobs.
+
 [rq-dashboard](https://github.com/eoranged/rq-dashboard) for monitoring. Available at [http://0.0.0.0:9181/](http://0.0.0.0:9181/)
 
 ### Documentation
