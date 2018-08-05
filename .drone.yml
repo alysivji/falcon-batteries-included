@@ -1,11 +1,13 @@
 pipeline:
   build:
     image: python:3.7.0-slim-stretch
+    environment:
+      DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
     commands:
+      - black .
       - pip install -r requirements_dev.txt
       - alembic upgrade head
       - pytest
-      - black .
 services:
   db:
     image: postgres:10.3-alpine
