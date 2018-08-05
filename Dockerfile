@@ -1,7 +1,10 @@
-FROM python:3.7.0-stretch
+FROM python:3.7.0-slim-stretch
 
 LABEL maintainer="Aly Sivji <alysivji@gmail.com>" \
     description="Development image for batteries included Falcon project"
+
+ARG GMAIL_ADDRESS
+ARG GMAIL_APPLICATION_PASSWORD
 
 WORKDIR /app
 

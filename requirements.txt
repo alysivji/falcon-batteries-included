@@ -7,5 +7,8 @@ falcon-swagger-ui
 gunicorn
 marshmallow==3.0.0b12
 psycopg2-binary
+redis
+rq
+rq-scheduler
 sqlalchemy
 sqlalchemy-wrapper

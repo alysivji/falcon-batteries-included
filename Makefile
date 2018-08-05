@@ -21,6 +21,7 @@ help:
 	@echo ' make shell            connect to api container in new bash shell  '
 	@echo ' make shell-ipython    connect to api container in new bash shell  '
 	@echo ' make shell-db         shell into psql inside database container   '
+	@echo ' make view-dash        view task queue dashboardd                  '
 	@echo '                                                                   '
 
 build:
@@ -42,6 +43,9 @@ down:
 attach: ## Attach to web container
 	docker attach `docker-compose ps -q api`
 
+attach-worker:
+	docker attach `docker-compose ps -q worker`
+
 logs:
 	docker logs `docker-compose ps -q api`
 
@@ -52,12 +56,12 @@ shell-root:  # Shell into web container as root
 	docker-compose exec -u root api bash
 
 shell-ipython: ## Shell into ipython with falcon context
-	docker-compose exec api python shell.py
+	docker-compose exec api python /app/scripts/ipython_shell.py
 
 shell-db: ## Shell into postgres process inside db container
 	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
 
-migration: up ## Create migrations using alembic
+migration: ## Create migrations using alembic
 	docker-compose exec api alembic revision --autogenerate -m "$(m)"
 
 migrate-up: ## Run migrations using alembic
@@ -66,17 +70,20 @@ migrate-up: ## Run migrations using alembic
 migrate-down: ## Rollback migrations using alembic
 	docker-compose exec api alembic downgrade -1
 
-test: migrate
+test: migrate-up
 	docker-compose exec api pytest
 
-test-cov: migrate
+test-cov: migrate-up
 	docker-compose exec api pytest --verbose --cov
 
-test-cov-view: migrate
+test-cov-view: migrate-up
 	docker-compose exec api pytest --cov --cov-report html && open ./htmlcov/index.html
 
 test-fast: ## Can pass in parameters using p=''
 	docker-compose exec api pytest $(p)
+
+view-dash:
+	open http://0.0.0.0:9181/
 
 # Flake 8
 # options: http://flake8.pycqa.org/en/latest/user/options.html

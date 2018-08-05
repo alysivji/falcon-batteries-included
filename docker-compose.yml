@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  # infrastructure
   db:
     image: postgres:10.3-alpine
     environment:
@@ -9,18 +10,61 @@ services:
       POSTGRES_PASSWORD: sivdev_pass
     ports:
       - "9432:5432"
+  redis:
+    image: redis:4.0-alpine
+
+  # web app
   api:
     build:
       context: .
     command: ["gunicorn", "app:api", "-b", "0.0.0.0:7000", "--reload", "--timeout",  "100000"]
     environment:
       DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
+      GMAIL_ADDRESS: $GMAIL_ADDRESS
+      GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
       PYTHONPATH: .
+      REDIS_URL: redis://redis:6379
     depends_on:
       - db
+      - redis
+      - worker
+      - rq-dash
+      - rq-scheduler
     volumes:
       - .:/app
     stdin_open: true
     tty: true
     ports:
       - "7000:7000"
+
+  # task queue
+  rq-dash:
+    build:
+      context: ./scripts/rq-dashboard/
+    environment:
+      RQ_DASHBOARD_REDIS_URL: redis://redis:6379
+    ports:
+      - "9181:9181"
+    command: ["rq-dashboard"]
+  rq-scheduler:
+    build:
+      context: ./scripts/rq-scheduler/
+    environment:
+      RQ_REDIS_HOST: redis
+      RQ_REDIS_PORT: 6379
+    command: ["rqscheduler"]
+  worker:
+    build:
+      context: .
+    environment:
+      GMAIL_ADDRESS: $GMAIL_ADDRESS
+      GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
+      REDIS_URL: redis://redis:6379
+    command: ["python", "/app/start_worker.py"]
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true

@@ -3,6 +3,7 @@ import falcon
 from app.models import User
 from app.schemas.users import users_item_schema, users_patch_schema
 from app.utilities import find_item_by_id
+from app.workflows.user import process_new_user
 
 
 class UsersResource:
@@ -33,11 +34,12 @@ class UsersResource:
                 description: Input body formatting issue
         """
         db = req.context["db"]
-        db.session.add(req._deserialized)
-        db.session.commit()
+        user = req._deserialized
+
+        user = process_new_user(db, user)
 
         resp.status = falcon.HTTP_CREATED
-        resp._data = req._deserialized
+        resp._data = user
 
 
 class UsersItemResource:
