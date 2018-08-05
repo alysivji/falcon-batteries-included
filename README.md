@@ -30,6 +30,8 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 4. Install [`pre-commit`](https://pre-commit.com/) on your development machine
 5. `pre-commit install` will run existing hook scripts (from [`.pre-commit-config.yaml`](https://github.com/alysivji/falcon-batteries-included/blob/master/.pre-commit-config.yaml))
 
+Server available at [http://0.0.0.0:7000/](http://0.0.0.0:7000/)
+
 ## Batteries
 
 ### Asynchronous Task Queue
