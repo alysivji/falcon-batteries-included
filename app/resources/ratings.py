@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import falcon
 
 from app.models import Rating
@@ -7,7 +9,7 @@ from app.schemas.ratings import rating_item_schema
 class RateResource:
     deserializers = {"post": rating_item_schema}
 
-    def on_post(self, req, resp, id):
+    def on_post(self, req: falcon.Request, resp: falcon.Response, id: int):
         """
         ---
         summary: Add rating for movie as logged in user

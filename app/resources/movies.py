@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import falcon
 
 from app.models import Movie
@@ -13,7 +15,7 @@ class MoviesResource:
     deserializers = {"post": movies_item_schema}
     serializers = {"get": movies_list_schema, "post": movies_item_schema}
 
-    def on_get(self, req, resp):
+    def on_get(self, req: falcon.Request, resp: falcon.Response):
         """
         ---
         summary: Get all movies in the database
@@ -35,7 +37,7 @@ class MoviesResource:
         resp.status = falcon.HTTP_OK
         resp._data = db.query(Movie).all()
 
-    def on_post(self, req, resp):
+    def on_post(self, req: falcon.Request, resp: falcon.Response):
         """
         ---
         summary: Add new movie to database
@@ -69,7 +71,7 @@ class MoviesItemResource:
     deserializers = {"patch": movies_patch_schema}
     serializers = {"get": movies_item_schema, "patch": movies_item_schema}
 
-    def on_delete(self, req, resp, id):
+    def on_delete(self, req: falcon.Request, resp: falcon.Response, id: int):
         """
         ---
         summary: Delete movie from database
@@ -93,7 +95,7 @@ class MoviesItemResource:
         resp.status = falcon.HTTP_NO_CONTENT
         resp.media = {}
 
-    def on_get(self, req, resp, id):
+    def on_get(self, req: falcon.Request, resp: falcon.Response, id: int):
         """
         ---
         summary: Get movie from database
@@ -116,7 +118,7 @@ class MoviesItemResource:
         resp.status = falcon.HTTP_OK
         resp._data = movie
 
-    def on_patch(self, req, resp, id):
+    def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int):
         """
         ---
         summary: Update movie details in database
@@ -154,7 +156,7 @@ class MoviesBulkResource:
     deserializers = {"post": movies_list_schema}
     serializers = {"post": movies_list_schema}
 
-    def on_post(self, req, resp):
+    def on_post(self, req: falcon.Request, resp: falcon.Response):
         """
         ---
         summary: Add many movies to database

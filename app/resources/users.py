@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import falcon
 
 from app.models import User
@@ -11,7 +13,7 @@ class UsersResource:
     deserializers = {"post": users_item_schema}
     serializers = {"post": users_item_schema}
 
-    def on_post(self, req, resp):
+    def on_post(self, req: falcon.Request, resp: falcon.Response) -> None:
         """
         ---
         summary: Create new user
@@ -46,7 +48,7 @@ class UsersItemResource:
     deserializers = {"patch": users_patch_schema}
     serializers = {"get": users_item_schema, "patch": users_item_schema}
 
-    def on_delete(self, req, resp, id):
+    def on_delete(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Delete user from database
@@ -70,7 +72,7 @@ class UsersItemResource:
         resp.status = falcon.HTTP_NO_CONTENT
         resp.media = {}
 
-    def on_get(self, req, resp, id):
+    def on_get(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Get user from database
@@ -92,7 +94,7 @@ class UsersItemResource:
         resp.status = falcon.HTTP_OK
         resp._data = find_item_by_id(db=db, model=User, id=id)
 
-    def on_patch(self, req, resp, id):
+    def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Update user details in database

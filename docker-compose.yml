@@ -22,6 +22,7 @@ services:
       DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
       GMAIL_ADDRESS: $GMAIL_ADDRESS
       GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
+      MYPYPATH: .
       PYTHONPATH: .
       REDIS_URL: redis://redis:6379
     depends_on:

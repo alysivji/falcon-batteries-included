@@ -1,9 +1,13 @@
+from typing import Any
+
 from sqlalchemy.ext.declarative import declared_attr
 
 from .. import db
 
+DbBase: Any = db.Model
 
-class BaseModel(db.Model):
+
+class BaseModel(DbBase):
     __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True)
