@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import falcon
 
 from app import auth_backend
@@ -10,7 +12,7 @@ class LoginResource:
     auth = {"auth_disabled": True}
     deserializers = {"post": login_schema}
 
-    def on_post(self, req, resp):
+    def on_post(self, req: falcon.Request, resp: falcon.Response):
         """
         ---
         summary: Login into user account and generate JWT
