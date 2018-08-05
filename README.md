@@ -1,5 +1,7 @@
 # Falcon Batteries Included
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
 This example project will demonstrate on how use Falcon and various python libraries to build a REST API for a movie recommendation website.
 
 ## Design
@@ -34,3 +36,9 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
 
 * [apispec](https://github.com/marshmallow-code/apispec) + [falcon-apispec](https://github.com/alysivji/falcon-apispec) to generate OpenAPI (aka Swagger) specification
 * Serve documentation with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
+
+### Code Formatting
+
+* Formatted using [Black](https://github.com/ambv/black)
+* [pre-commit](https://pre-commit.com/) hooks format all commits locally
+  * `pre-commit install`

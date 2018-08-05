@@ -7,7 +7,7 @@ from app.workflows.user import process_new_user
 
 
 class UsersResource:
-    auth = {'exempt_methods': ['POST']}
+    auth = {"exempt_methods": ["POST"]}
     deserializers = {"post": users_item_schema}
     serializers = {"post": users_item_schema}
 
