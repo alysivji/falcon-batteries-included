@@ -9,10 +9,12 @@ from .exceptions import HTTPError
 from .models import User
 
 
-def find_item_by_id(db, model, id):
-    """Helper method to find item or return 404"""
+def find_item_by_id(db, model, id, *, worker_task=False):
+    """Helper method to find item or return 404 or raise async worker error"""
     item = db.query(model).get(id)
     if not item:
+        if worker_task:
+            raise RuntimeError("could not find")  # TODO pick better exception
         raise HTTPError(falcon.HTTP_404, errors={"id": "does not exist"})
     return item
 

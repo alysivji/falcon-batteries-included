@@ -2,6 +2,10 @@
 
 This example project will demonstrate on how use Falcon and various python libraries to build a REST API for a movie recommendation website.
 
+## Design
+
+Most of the CRUD logic is in controllers, but if we have to do perform multiple tasks for an endpoint, a process is kicked off.
+
 ## Batteries
 
 ### SQLAlchemy

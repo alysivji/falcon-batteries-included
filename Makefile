@@ -43,6 +43,9 @@ down:
 attach: ## Attach to web container
 	docker attach `docker-compose ps -q api`
 
+attach-worker:
+	docker attach `docker-compose ps -q worker`
+
 logs:
 	docker logs `docker-compose ps -q api`
 
@@ -58,7 +61,7 @@ shell-ipython: ## Shell into ipython with falcon context
 shell-db: ## Shell into postgres process inside db container
 	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
 
-migration: up ## Create migrations using alembic
+migration: ## Create migrations using alembic
 	docker-compose exec api alembic revision --autogenerate -m "$(m)"
 
 migrate-up: ## Run migrations using alembic

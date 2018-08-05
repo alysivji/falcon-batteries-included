@@ -5,9 +5,16 @@ from falcon_apispec import FalconPlugin
 from falcon_auth import FalconAuthMiddleware, JWTAuthBackend
 from falcon_swagger_ui import register_swaggerui_app
 from sqlalchemy_wrapper import SQLAlchemy
+import redis
+from rq import Queue
 
-from .config import DATABASE_URI, SECRET_KEY
+
+from .config import DATABASE_URI, REDIS_URI, SECRET_KEY
 from .middleware import SerializationMiddleware, SQLAlchemySessionManager
+
+# Redis
+redis_conn = redis.StrictRedis.from_url(REDIS_URI)
+q = Queue(connection=redis_conn)
 
 # SQLAlchemy
 db = SQLAlchemy(DATABASE_URI)
