@@ -1,6 +1,6 @@
 # Falcon Batteries Included
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![PyUp](https://pyup.io/repos/github/alysivji/falcon-batteries-included/shield.svg)](https://pyup.io/account/repos/github/alysivji/falcon-batteries-included/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 This opinionated project demonstrates how use [Falcon](https://github.com/falconry/falcon) and various Python libraries to build a scalable REST API for a movie recommendation website.
 
@@ -14,6 +14,7 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 
 * Code Formatter: [Black](https://github.com/ambv/black)
 * Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
+* Updating Dependencies: [PyUp](https://pyup.io/)
 
 ## Development Workflow
 
