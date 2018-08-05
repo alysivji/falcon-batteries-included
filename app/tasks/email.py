@@ -14,6 +14,7 @@ from ..utilities import find_item_by_id
 
 
 def _send_email(msg):
+    # TODO do not send if we are not in production
     with smtplib.SMTP("smtp.gmail.com", port=587) as smtp_server:
         smtp_server.ehlo()
         smtp_server.starttls()

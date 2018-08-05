@@ -29,6 +29,7 @@ services:
       - redis
       - worker
       - rq-dash
+      - rq-scheduler
     volumes:
       - .:/app
     stdin_open: true
@@ -39,12 +40,19 @@ services:
   # task queue
   rq-dash:
     build:
-      context: ./rq-dashboard/
+      context: ./scripts/rq-dashboard/
     environment:
       RQ_DASHBOARD_REDIS_URL: redis://redis:6379
     ports:
       - "9181:9181"
     command: ["rq-dashboard"]
+  rq-scheduler:
+    build:
+      context: ./scripts/rq-scheduler/
+    environment:
+      RQ_REDIS_HOST: redis
+      RQ_REDIS_PORT: 6379
+    command: ["rqscheduler"]
   worker:
     build:
       context: .
