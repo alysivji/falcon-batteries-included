@@ -8,6 +8,7 @@ pipeline:
     commands:
       - pip install -r requirements_dev.txt
       - black .
+      - sleep 15
       - alembic upgrade head
       - pytest
 services:
