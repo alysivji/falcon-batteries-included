@@ -2,11 +2,33 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-This example project will demonstrate on how use Falcon and various python libraries to build a REST API for a movie recommendation website.
+This opinionated project demonstrates on how use Falcon and various Python libraries to build a scalable REST API for a movie recommendation website.
 
 ## Design
 
-Most of the CRUD logic is in controllers, but if we have to do perform multiple tasks for an endpoint, a process is kicked off.
+> Use the best tool for the job at hand.
+
+* Most of the CRUD logic is in controllers, but if we have to do perform multiple tasks for an endpoint, a process is kicked off.
+
+## Python Best Practices
+
+* Code Formatter: [Black](https://github.com/ambv/black)
+* Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
+
+## Development Workflow
+
+* Development environment leverages Docker-Compose to replicate production environment
+* `Makefile` provides common operations for development
+* [pre-commit](https://pre-commit.com/) hooks identify comomn code review issues before submission
+* CI pipeline is triggered on push to branch and PR creation
+
+### Getting Started
+
+1. `make up`
+2. Create virtual environment on local machine, `pip install -r requirements_dev.txt` to install dependencies locally
+3. Point IDE's `PYTHONPATH` to the `python` instance in the virtual environment from above to get autocomplete and other tooling working
+4. Install [`pre-commit`](https://pre-commit.com/) on your development machine
+5. `pre-commit install` will run existing hook scripts (from [`.pre-commit-config.yaml`](https://github.com/alysivji/falcon-batteries-included/blob/master/.pre-commit-config.yaml))
 
 ## Batteries
 
@@ -19,12 +41,6 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
 ### Authentication
 
 * JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth)
-
-### Code Formatting
-
-* Formatted using [Black](https://github.com/ambv/black)
-* [pre-commit](https://pre-commit.com/) hooks format all commits locally
-  * `pre-commit install`
 
 ### Continuous Integration, Continouous Delivery (CICD)
 
@@ -46,7 +62,3 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
   * Load database (well, declarative base) into the request object
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
-
-### Static Analysis
-
-* Added [mypy](https://mypy.readthedocs.io/en/latest/index.html) to CI pipeline
