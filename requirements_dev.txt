@@ -2,6 +2,7 @@
 black
 flake8
 ipython
+mypy
 pdbpp
 pre-commit
 pytest

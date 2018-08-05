@@ -1,19 +1,30 @@
 from . import api
 
+###############
+# Miscellaneous
+###############
+
 from .resources.health_check import HealthCheckResource
 from .resources.playground import PlaygroundResource
 from .resources.swagger import ApiSpecResource
 
-# app
-from .resources.login import LoginResource
-from .resources.movies import MoviesBulkResource, MoviesItemResource, MoviesResource
-from .resources.ratings import RateResource
-from .resources.users import UsersItemResource, UsersResource
-
-# miscellaneous
 api.add_route("/apispec", ApiSpecResource())
 api.add_route("/health-check", HealthCheckResource())
 api.add_route("/playground", PlaygroundResource())
+
+
+#####
+# API
+#####
+
+from .resources.login import LoginResource  # noqa
+from .resources.movies import (
+    MoviesBulkResource,
+    MoviesItemResource,
+    MoviesResource,
+)  # noqa
+from .resources.ratings import RateResource  # noqa
+from .resources.users import UsersItemResource, UsersResource  # noqa
 
 # login resource
 login_resource = LoginResource()

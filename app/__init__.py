@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 import falcon
@@ -14,10 +16,10 @@ from .middleware import SerializationMiddleware, SQLAlchemySessionManager
 
 # Redis
 redis_conn = redis.StrictRedis.from_url(REDIS_URI)
-q = Queue(connection=redis_conn)
+q: Queue = Queue(connection=redis_conn)
 
 # SQLAlchemy
-db = SQLAlchemy(DATABASE_URI)
+db: SQLAlchemy = SQLAlchemy(DATABASE_URI)
 from app import models  # noqa
 
 # Authentication

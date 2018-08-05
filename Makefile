@@ -95,3 +95,6 @@ max_line_length = 99
 lint: up
 	docker-compose exec api flake8 \
 		--max-line-length $(max_line_length)
+
+mypy:
+	docker-compose exec api mypy .
