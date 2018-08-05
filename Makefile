@@ -73,6 +73,9 @@ migrate-down: ## Rollback migrations using alembic
 test: migrate-up
 	docker-compose exec api pytest
 
+test_fast:
+	docker-compose exec api pytest
+
 test-cov: migrate-up
 	docker-compose exec api pytest --verbose --cov
 

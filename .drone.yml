@@ -1,0 +1,15 @@
+pipeline:
+  build:
+    image: python:3.7.0-slim-stretch
+    commands:
+      - pip install -r requirements_dev.txt
+      - alembic upgrade head
+      - pytest
+      - black .
+services:
+  db:
+    image: postgres:10.3-alpine
+    environment:
+      POSTGRES_DB: sivdev
+      POSTGRES_USER: sivdev_user
+      POSTGRES_PASSWORD: sivdev_pass

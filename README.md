@@ -12,19 +12,19 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
 
 ### SQLAlchemy
 
-* Load database (well, declarative base) into the request object
-* Remove database from request before sending response
-  * Follow pattern described in [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/orm/session_basics.html#when-do-i-construct-a-session-when-do-i-commit-it-and-when-do-i-close-it)
-* Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/).
+* Follow pattern described in [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/orm/session_basics.html#when-do-i-construct-a-session-when-do-i-commit-it-and-when-do-i-close-it)
+  * Load database (well, declarative base) into the request object
+  * Remove database from request before sending response
+* Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
 
 ### Marshmallow
 
-* serialize objects into JSON (response) and to deserialize JSON into object (request).
-* [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate adding
+* serialize objects into JSON (response) and deserialize JSON into object (request)
+* [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate
 
 ### Authentication
 
-* JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth).
+* JWT authentication via [falcon-auth](https://github.com/loanzen/falcon-auth)
 
 ### Asynchronous Task Queue
 
@@ -35,7 +35,7 @@ Most of the CRUD logic is in controllers, but if we have to do perform multiple 
 ### Documentation
 
 * [apispec](https://github.com/marshmallow-code/apispec) + [falcon-apispec](https://github.com/alysivji/falcon-apispec) to generate OpenAPI (aka Swagger) specification
-* Serve documentation with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui)
+* Serve documentation with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui). Available at [http://0.0.0.0:7000/swagger](http://localhost:7000/swagger)
 
 ### Code Formatting
 
