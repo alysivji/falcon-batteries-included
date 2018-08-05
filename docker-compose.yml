@@ -28,8 +28,8 @@ services:
       - db
       - redis
       - worker
-      - rq-dash
-      - rq-scheduler
+      # - rq-dash
+      # - rq-scheduler
     volumes:
       - .:/app
     stdin_open: true
@@ -61,9 +61,6 @@ services:
       GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
       REDIS_URL: redis://redis:6379
     command: ["python", "/app/start_worker.py"]
-    deploy:
-      mode: replicated
-      replicas: 1
     volumes:
       - .:/app
     stdin_open: true

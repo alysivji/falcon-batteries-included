@@ -1,0 +1,20 @@
+pipeline:
+  build:
+    image: python:3.7.0-slim-stretch
+    environment:
+      DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
+      PYTHONPATH: .
+      REDIS_URL: redis://redis:6379
+    commands:
+      - pip install -r requirements_dev.txt
+      - black .
+      - sleep 15
+      - alembic upgrade head
+      - pytest
+services:
+  db:
+    image: postgres:10.3-alpine
+    environment:
+      POSTGRES_DB: sivdev
+      POSTGRES_USER: sivdev_user
+      POSTGRES_PASSWORD: sivdev_pass
