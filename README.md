@@ -13,6 +13,7 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 ## Python Best Practices
 
 * Code Formatter: [Black](https://github.com/ambv/black)
+* Logging: [Standard Library](https://docs.python.org/3/library/logging.html)
 * Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
 * Updating Dependencies: [PyUp](https://pyup.io/)
 
