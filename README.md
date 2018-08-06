@@ -55,14 +55,15 @@ Server available at [http://0.0.0.0:7000/](http://0.0.0.0:7000/)
 * [apispec](https://github.com/marshmallow-code/apispec) + [falcon-apispec](https://github.com/alysivji/falcon-apispec) to generate OpenAPI (aka Swagger) specification
 * Serve documentation with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui). Available at [http://0.0.0.0:7000/swagger](http://localhost:7000/swagger)
 
-### Marshmallow
-
-* serialize objects into JSON (response) and deserialize JSON into object (request)
-* [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate
-
-### SQLAlchemy
+### ORM (SQLAlchemy)
 
 * Follow pattern described in [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/orm/session_basics.html#when-do-i-construct-a-session-when-do-i-commit-it-and-when-do-i-close-it)
   * Load database (well, declarative base) into the request object
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
+
+### Serialization
+
+* [Marshmallow](https://github.com/marshmallow-code/marshmallow) to serialize objects into JSON (response) and deserialize JSON into object (request)
+* [https://github.com/sloria/webargs](webargs) to parse requests arguments (query string)
+* [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate
