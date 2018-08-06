@@ -33,7 +33,16 @@ class MoviePathSchema(Schema):
     id = fields.Int()
 
 
+class MovieQuerySchema(Schema):
+    page = fields.Int(missing=1)
+    per_page = fields.Int(missing=20)
+
+    class Meta:
+        strict = True
+
+
 movies_item_schema = MovieSchema()
 movies_list_schema = MovieSchema(many=True)
 movies_patch_schema = MoviePatchSchema()
 movies_path_schema = MoviePathSchema()
+movies_query_schema = MovieQuerySchema()

@@ -13,6 +13,7 @@ from .schemas import (
     MovieSchema,
     MoviePatchSchema,
     MoviePathSchema,
+    MovieQuerySchema,
     RatingSchema,
     UserSchema,
     UserPatchSchema,
@@ -24,6 +25,7 @@ spec.definition("Login", schema=LoginSchema)
 spec.definition("Movie", schema=MovieSchema)
 spec.definition("MoviePatch", schema=MoviePatchSchema)
 spec.definition("MoviePathSchema", schema=MoviePathSchema)
+spec.definition("MovieQuerySchema", schema=MovieQuerySchema)
 spec.definition("Rating", schema=RatingSchema)
 spec.definition("User", schema=UserSchema)
 spec.definition("UserPatch", schema=UserPatchSchema)

@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import falcon
 from sqlalchemy_wrapper import Paginator
+from webargs.falconparser import use_args
 
 from app.models import Movie
 from app.schemas.movies import (
     movies_item_schema,
     movies_list_schema,
     movies_patch_schema,
+    movies_query_schema,
 )
 from app.utilities import find_item_by_id
 
@@ -16,12 +18,16 @@ class MoviesResource:
     deserializers = {"post": movies_item_schema}
     serializers = {"get": movies_list_schema, "post": movies_item_schema}
 
-    def on_get(self, req: falcon.Request, resp: falcon.Response) -> None:
+    @use_args(movies_query_schema, locations=["query"])
+    def on_get(self, req: falcon.Request, resp: falcon.Response, args: dict) -> None:
         """
         ---
         summary: Get all movies in the database
         tags:
             - Movie
+        parameters:
+            - in: query
+              schema: MovieQuerySchema
         produces:
             - application/json
         responses:
@@ -34,10 +40,13 @@ class MoviesResource:
                 description: Unauthorized
         """
         db = req.context["db"]
+        page = args.get("page")
+        per_page = args.get("per_page")
 
         resp.status = falcon.HTTP_OK
         all_items_query = db.query(Movie)
-        paginated_query = Paginator(all_items_query, page=1, per_page=20)
+        paginated_query = Paginator(all_items_query, page=page, per_page=per_page)
+
         resp._data = paginated_query
 
     def on_post(self, req: falcon.Request, resp: falcon.Response) -> None:
