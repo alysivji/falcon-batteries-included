@@ -7,7 +7,7 @@ from app.utilities import generate_password_hash
 
 class UserSchema(Schema):
     # Fields
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     email = fields.Email(required=True)
     first_name = fields.String(required=True)
     middle_name = fields.String()
@@ -36,5 +36,10 @@ class UserPatchSchema(Schema):
     # TODO allow for changing passwords (need to think about auth strategy)
 
 
+class UserPathSchema(Schema):
+    id = fields.Int()
+
+
 users_item_schema = UserSchema()
 users_patch_schema = UserPatchSchema()
+users_path_schema = UserPathSchema()

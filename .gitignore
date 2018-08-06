@@ -106,3 +106,4 @@ ENV/
 .DS_Store
 .vscode
 .pdbrc.py
+etl/

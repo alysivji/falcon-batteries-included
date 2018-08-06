@@ -6,7 +6,7 @@ from app.models import Movie
 
 class MovieSchema(Schema):
     # Fields
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
     title = fields.Str(required=True)
     release_year = fields.Int(required=True)
     description = fields.Str(required=True)
@@ -29,6 +29,20 @@ class MoviePatchSchema(Schema):
     description = fields.Str()
 
 
+class MoviePathSchema(Schema):
+    id = fields.Int()
+
+
+class MovieQuerySchema(Schema):
+    page = fields.Int(missing=1)
+    per_page = fields.Int(missing=20)
+
+    class Meta:
+        strict = True
+
+
 movies_item_schema = MovieSchema()
 movies_list_schema = MovieSchema(many=True)
 movies_patch_schema = MoviePatchSchema()
+movies_path_schema = MoviePathSchema()
+movies_query_schema = MovieQuerySchema()
