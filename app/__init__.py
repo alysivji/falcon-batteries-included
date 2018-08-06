@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging.config
+
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 import falcon
@@ -11,8 +13,11 @@ import redis
 from rq import Queue
 
 
-from .config import DATABASE_URI, REDIS_URI, SECRET_KEY
+from .config import DATABASE_URI, LOGGING_CONFIG, REDIS_URI, SECRET_KEY
 from .middleware import SerializationMiddleware, SQLAlchemySessionManager
+
+# Logging
+logging.config.dictConfig(LOGGING_CONFIG)
 
 # Redis
 redis_conn = redis.StrictRedis.from_url(REDIS_URI)
