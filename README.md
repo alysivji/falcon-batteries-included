@@ -62,8 +62,8 @@ Server available at [http://0.0.0.0:7000/](http://0.0.0.0:7000/)
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
 
-### Serialization
+### Serialization / Deserialization
 
 * [Marshmallow](https://github.com/marshmallow-code/marshmallow) to serialize objects into JSON (response) and deserialize JSON into object (request)
-* [https://github.com/sloria/webargs](webargs) to parse requests arguments (query string)
+* [webargs](https://github.com/sloria/webargs) to parse requests arguments (query string)
 * [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate
