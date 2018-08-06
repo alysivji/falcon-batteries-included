@@ -54,6 +54,9 @@ class UsersItemResource:
         summary: Delete user from database
         tags:
             - User
+        parameters:
+            - in: path
+              schema: UserPathSchema
         produces:
             - application/json
         responses:
@@ -78,6 +81,9 @@ class UsersItemResource:
         summary: Get user from database
         tags:
             - User
+        parameters:
+            - in: path
+              schema: UserPathSchema
         produces:
             - application/json
         responses:
@@ -101,6 +107,8 @@ class UsersItemResource:
         tags:
             - User
         parameters:
+            - in: path
+              schema: UserPathSchema
             - in: body
               schema: UserPatchSchema
         consumes:

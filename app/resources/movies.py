@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import falcon
+from sqlalchemy_wrapper import Paginator
 
 from app.models import Movie
 from app.schemas.movies import (
@@ -15,7 +16,7 @@ class MoviesResource:
     deserializers = {"post": movies_item_schema}
     serializers = {"get": movies_list_schema, "post": movies_item_schema}
 
-    def on_get(self, req: falcon.Request, resp: falcon.Response):
+    def on_get(self, req: falcon.Request, resp: falcon.Response) -> None:
         """
         ---
         summary: Get all movies in the database
@@ -35,9 +36,11 @@ class MoviesResource:
         db = req.context["db"]
 
         resp.status = falcon.HTTP_OK
-        resp._data = db.query(Movie).all()
+        all_items_query = db.query(Movie)
+        paginated_query = Paginator(all_items_query, page=1, per_page=20)
+        resp._data = paginated_query
 
-    def on_post(self, req: falcon.Request, resp: falcon.Response):
+    def on_post(self, req: falcon.Request, resp: falcon.Response) -> None:
         """
         ---
         summary: Add new movie to database
@@ -71,12 +74,15 @@ class MoviesItemResource:
     deserializers = {"patch": movies_patch_schema}
     serializers = {"get": movies_item_schema, "patch": movies_item_schema}
 
-    def on_delete(self, req: falcon.Request, resp: falcon.Response, id: int):
+    def on_delete(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Delete movie from database
         tags:
             - Movie
+        parameters:
+            - in: path
+              schema: MoviePathSchema
         produces:
             - application/json
         responses:
@@ -95,12 +101,15 @@ class MoviesItemResource:
         resp.status = falcon.HTTP_NO_CONTENT
         resp.media = {}
 
-    def on_get(self, req: falcon.Request, resp: falcon.Response, id: int):
+    def on_get(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Get movie from database
         tags:
             - Movie
+        parameters:
+            - in: path
+              schema: MoviePathSchema
         produces:
             - application/json
         responses:
@@ -118,13 +127,15 @@ class MoviesItemResource:
         resp.status = falcon.HTTP_OK
         resp._data = movie
 
-    def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int):
+    def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
         ---
         summary: Update movie details in database
         tags:
             - Movie
         parameters:
+            - in: path
+              schema: MoviePathSchema
             - in: body
               schema: MoviePatchSchema
         consumes:
@@ -156,7 +167,7 @@ class MoviesBulkResource:
     deserializers = {"post": movies_list_schema}
     serializers = {"post": movies_list_schema}
 
-    def on_post(self, req: falcon.Request, resp: falcon.Response):
+    def on_post(self, req: falcon.Request, resp: falcon.Response) -> None:
         """
         ---
         summary: Add many movies to database
