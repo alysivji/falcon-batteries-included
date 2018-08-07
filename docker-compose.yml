@@ -12,6 +12,18 @@ services:
       - "9432:5432"
   redis:
     image: redis:4.0-alpine
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    environment:
+      cluster.name: docker-cluster
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
 
   # web app
   api:
@@ -20,6 +32,7 @@ services:
     command: ["gunicorn", "app:api", "-b", "0.0.0.0:7000", "--reload", "--timeout",  "100000"]
     environment:
       DATABASE_URI: postgresql://sivdev_user:sivdev_pass@db:5432/sivdev
+      ELASTICSEARCH_URI: http://elasticsearch:9200
       GMAIL_ADDRESS: $GMAIL_ADDRESS
       GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
       MYPYPATH: .
@@ -31,6 +44,8 @@ services:
       - worker
       # - rq-dash
       # - rq-scheduler
+      - elasticsearch
+      - kibana
     volumes:
       - .:/app
     stdin_open: true
@@ -66,3 +81,9 @@ services:
       - .:/app
     stdin_open: true
     tty: true
+
+  # elasticstack
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.2
+    ports:
+      - "5601:5601"

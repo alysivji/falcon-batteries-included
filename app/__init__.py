@@ -4,6 +4,7 @@ import logging.config
 
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
+from elasticsearch import Elasticsearch
 import falcon
 from falcon_apispec import FalconPlugin
 from falcon_auth import FalconAuthMiddleware, JWTAuthBackend
@@ -13,7 +14,13 @@ import redis
 from rq import Queue
 
 
-from .config import DATABASE_URI, LOGGING_CONFIG, REDIS_URI, SECRET_KEY
+from .config import (
+    DATABASE_URI,
+    ELASTICSEARCH_URI,
+    LOGGING_CONFIG,
+    REDIS_URI,
+    SECRET_KEY,
+)
 from .middleware import SerializationMiddleware, SQLAlchemySessionManager
 
 # Logging
@@ -22,6 +29,10 @@ logging.config.dictConfig(LOGGING_CONFIG)
 # Redis
 redis_conn = redis.StrictRedis.from_url(REDIS_URI)
 q: Queue = Queue(connection=redis_conn)
+
+# Elasticsearch
+es = Elasticsearch(ELASTICSEARCH_URI) if ELASTICSEARCH_URI else None
+# TODO might have to load a different configuration for production, look into
 
 # SQLAlchemy
 db: SQLAlchemy = SQLAlchemy(DATABASE_URI)

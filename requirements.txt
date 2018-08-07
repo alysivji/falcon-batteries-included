@@ -1,5 +1,6 @@
 alembic==1.0.0
 apispec==1.0.0b1
+elasticsearch==6.3.0
 falcon==1.4.1
 falcon-apispec==0.1.0
 falcon-auth==1.1.0
