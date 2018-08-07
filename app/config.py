@@ -6,6 +6,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "shhhh! it's a secret")
 # infrastructure
 local_db = "postgresql://sivdev_user:sivdev_pass@db:5432/sivdev"
 DATABASE_URI = os.getenv("DATABASE_URI", local_db)
+ELASTICSEARCH_URI = os.getenv("ELASTICSEARCH_URI", None)
 REDIS_URI = os.getenv("REDIS_URL", "redis://redis:6379")
 
 # email service

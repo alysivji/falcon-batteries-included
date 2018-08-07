@@ -10,13 +10,6 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 
 * Most of the CRUD logic is in controllers, but if we have to do perform multiple tasks for an endpoint, a process is kicked off.
 
-## Python Best Practices
-
-* Code Formatter: [Black](https://github.com/ambv/black)
-* Logging: [Standard Library](https://docs.python.org/3/library/logging.html)
-* Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
-* Updating Dependencies: [PyUp](https://pyup.io/)
-
 ## Development Workflow
 
 * Development environment leverages Docker-Compose to replicate production environment
@@ -33,6 +26,13 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 5. `pre-commit install` will run existing hook scripts (from [`.pre-commit-config.yaml`](https://github.com/alysivji/falcon-batteries-included/blob/master/.pre-commit-config.yaml))
 
 Server available at [http://0.0.0.0:7000/](http://0.0.0.0:7000/)
+
+## Python Best Practices
+
+* Code Formatter: [Black](https://github.com/ambv/black)
+* Logging: [Standard Library](https://docs.python.org/3/library/logging.html)
+* Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
+* Updating Dependencies: [PyUp](https://pyup.io/)
 
 ## Batteries
 

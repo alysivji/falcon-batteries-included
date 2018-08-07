@@ -1,9 +1,11 @@
 from .. import db
-from . import BaseModel
+from . import BaseModel, SearchableMixin
 
 
-class Movie(BaseModel):
+class Movie(SearchableMixin, BaseModel):
     """Movies Details Table"""
+
+    __searchable__ = ["description"]
 
     def __repr__(self):
         return f"<Movie: {self.title}>"
