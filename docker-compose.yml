@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
   # infrastructure
@@ -8,16 +8,34 @@ services:
       POSTGRES_DB: sivdev
       POSTGRES_USER: sivdev_user
       POSTGRES_PASSWORD: sivdev_pass
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
     ports:
       - "9432:5432"
   redis:
     image: redis:4.0-alpine
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli","ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
     environment:
       cluster.name: docker-cluster
       bootstrap.memory_lock: "true"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
     ulimits:
       memlock:
         soft: -1
@@ -42,8 +60,8 @@ services:
       - db
       - redis
       - worker
-      # - rq-dash
-      # - rq-scheduler
+      - rq-dash
+      - rq-scheduler
       - elasticsearch
       - kibana
     volumes:
@@ -59,6 +77,8 @@ services:
       context: ./scripts/rq-dashboard/
     environment:
       RQ_DASHBOARD_REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
     ports:
       - "9181:9181"
     command: ["rq-dashboard"]
@@ -68,6 +88,8 @@ services:
     environment:
       RQ_REDIS_HOST: redis
       RQ_REDIS_PORT: 6379
+    depends_on:
+      - redis
     command: ["rqscheduler"]
   worker:
     build:
@@ -85,5 +107,7 @@ services:
   # elasticstack
   kibana:
     image: docker.elastic.co/kibana/kibana:6.3.2
+    depends_on:
+      - elasticsearch
     ports:
       - "5601:5601"
