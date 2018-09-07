@@ -1,6 +1,6 @@
 """Collection of utility functions"""
 
-import hashlib
+from passlib.hash import bcrypt
 
 import falcon
 
@@ -20,7 +20,11 @@ def find_item_by_id(db, model, id, *, worker_task=False):
 
 
 def generate_password_hash(password):
-    return hashlib.md5(password.encode("utf-8")).hexdigest()
+    return bcrypt.hash(password)
+
+
+def password_matches(password, hashed_password):
+    return bcrypt.verify(password, hashed_password)
 
 
 def user_loader(payload):
