@@ -3,8 +3,6 @@ from __future__ import annotations
 import falcon
 
 from app import auth_backend
-from app.exceptions import HTTPError
-from app.models import User
 from app.schemas.login import login_schema
 
 
@@ -40,21 +38,7 @@ class LoginResource:
             422:
                 description: Input body formatting issue
         """
-        db = req.context["db"]
-
-        email = req._deserialized["email"]
-        password_hash = req._deserialized["password_hash"]
-
-        user = (
-            db.query(User)
-            .filter(User.email == email, User.password_hash == password_hash)
-            .first()
-        )
-
-        if not user:
-            raise HTTPError(
-                falcon.HTTP_UNAUTHORIZED, errors={"message": "login unsuccessful"}
-            )
+        user = req._deserialized
         jwt_token = auth_backend.get_auth_token({"id": user.id})
 
         resp.status = falcon.HTTP_OK

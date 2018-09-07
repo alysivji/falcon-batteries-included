@@ -85,6 +85,9 @@ test-cov-view: migrate-up
 test-fast: ## Can pass in parameters using p=''
 	docker-compose exec api pytest $(p)
 
+bandit: # static analyzer for common security issues
+	docker-compose exec api bandit -r app
+
 view-dash:
 	open http://0.0.0.0:9181/
 

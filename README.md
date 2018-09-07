@@ -40,6 +40,7 @@ Movie.search("top gun", page=1, per_page=5)
 
 * Code Formatter: [Black](https://github.com/ambv/black)
 * Logging: [Standard Library](https://docs.python.org/3/library/logging.html)
+* Security Issue Static Analysis: [Bandit](https://github.com/PyCQA/bandit)
 * Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
 * Updating Dependencies: [PyUp](https://pyup.io/)
 
