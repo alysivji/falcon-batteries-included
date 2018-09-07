@@ -19,11 +19,11 @@ def find_item_by_id(db, model, id, *, worker_task=False):
     return item
 
 
-def generate_password_hash(password):
+def generate_password_hash(password: str) -> str:
     return bcrypt.hash(password)
 
 
-def password_matches(password, hashed_password):
+def password_matches(password: str, hashed_password: str) -> bool:
     return bcrypt.verify(password, hashed_password)
 
 
