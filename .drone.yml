@@ -10,7 +10,7 @@ pipeline:
       - black .
       - sleep 15
       - alembic upgrade head
-      - pytest
+      - pytest -m "api"
 services:
   db:
     image: postgres:10.3-alpine
