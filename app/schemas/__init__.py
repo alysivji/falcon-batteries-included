@@ -7,4 +7,4 @@ from .movies import (
     MovieQuerySchema,
 )  # noqa
 from .ratings import RatingSchema  # noqa
-from .users import UserSchema, UserPatchSchema, UserPathSchema  # noqa
+from .users import UserSchema, UserPatchSchema, UserPathSchema, UserExistsSchema  # noqa

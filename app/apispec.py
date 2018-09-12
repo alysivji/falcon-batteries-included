@@ -10,14 +10,15 @@ from .routes import (
 )
 from .schemas import (
     LoginSchema,
-    MovieSchema,
     MoviePatchSchema,
     MoviePathSchema,
     MovieQuerySchema,
+    MovieSchema,
     RatingSchema,
-    UserSchema,
+    UserExistsSchema,
     UserPatchSchema,
     UserPathSchema,
+    UserSchema,
 )
 
 # set marshmallow schemas
@@ -28,6 +29,7 @@ spec.definition("MoviePathSchema", schema=MoviePathSchema)
 spec.definition("MovieQuerySchema", schema=MovieQuerySchema)
 spec.definition("Rating", schema=RatingSchema)
 spec.definition("User", schema=UserSchema)
+spec.definition("UserExistsSchema", schema=UserExistsSchema)
 spec.definition("UserPatch", schema=UserPatchSchema)
 spec.definition("UserPath", schema=UserPathSchema)
 
