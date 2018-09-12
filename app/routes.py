@@ -24,7 +24,11 @@ from .resources.movies import (
     MoviesResource,
 )  # noqa
 from .resources.ratings import RateResource  # noqa
-from .resources.users import UsersItemResource, UsersResource  # noqa
+from .resources.users import (
+    UsersExistsResource,
+    UsersItemResource,
+    UsersResource,
+)  # noqa
 
 # login resource
 login_resource = LoginResource()
@@ -45,6 +49,9 @@ rate_movie_resource = RateResource()
 api.add_route("/movies/{id:int}/rate", rate_movie_resource)
 
 # users
+users_exists_resource = UsersExistsResource()
+api.add_route("/users/exists", users_exists_resource)
+
 users_resource = UsersResource()
 api.add_route("/users", users_resource)
 

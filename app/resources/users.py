@@ -3,9 +3,36 @@ from __future__ import annotations
 import falcon
 
 from app.models import User
-from app.schemas.users import users_item_schema, users_patch_schema
+from app.schemas.users import users_item_schema, users_patch_schema, users_exists_schema
 from app.utilities import find_item_by_id
 from app.workflows.user import process_new_user
+
+
+class UsersExistsResource:
+    auth = {"auth_disabled": True}
+    deserializers = {"post": users_exists_schema}
+
+    def on_post(self, req: falcon.Request, resp: falcon.Response) -> None:
+        """
+        ---
+        summary: Check if email is already in database
+        tags:
+            - User
+        parameters:
+            - in: body
+              schema: UserExistsSchema
+        consumes:
+            - application/json
+        produces:
+            - application/json
+        responses:
+            201:
+                description: User exists
+            404:
+                description: User does not exist
+        """
+        resp.status = falcon.HTTP_OK
+        resp.media = {}
 
 
 class UsersResource:
