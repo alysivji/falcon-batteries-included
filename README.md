@@ -77,6 +77,13 @@ Movie.search("top gun", page=1, per_page=5)
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
 
+### Testing
+
+* [pytest](https://docs.pytest.org/en/latest/)
+* Functional tests via [tavern](https://taverntesting.github.io/)
+  * Works locally and not in drone (currently excluded from CI check)
+  * Either write a plugin to have Tavern hit Falcon test API or use Jenkins
+
 ### Serialization / Deserialization
 
 * [Marshmallow](https://github.com/marshmallow-code/marshmallow) to serialize objects into JSON (response) and deserialize JSON into object (request)
