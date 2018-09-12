@@ -7,7 +7,7 @@ marks:
 
 stages:
   - name: create_movie
-    request:
+    request: &create_movie
       url: "{host:s}/movies"
       method: POST
       headers:
@@ -57,9 +57,6 @@ stages:
     request:
       url: "{host:s}/movies"
       method: POST
-      json:
-        title: Title Unknown
-        release_year: 1999
-        description: Things happen over a few arcs and movie ends.
+      json: *sample_movie
     response:
       status_code: 401
