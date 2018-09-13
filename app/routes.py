@@ -1,3 +1,5 @@
+import os
+
 from . import api
 
 ###############
@@ -11,6 +13,7 @@ from .resources.swagger import ApiSpecResource
 api.add_route("/apispec", ApiSpecResource())
 api.add_route("/health-check", HealthCheckResource())
 api.add_route("/playground", PlaygroundResource())
+api.add_static_route("/redoc", os.path.join(os.path.dirname(__file__), "static"))
 
 
 #####
