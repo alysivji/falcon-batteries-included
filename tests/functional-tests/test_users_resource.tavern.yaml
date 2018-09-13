@@ -5,10 +5,13 @@ marks:
   - usefixtures:
       - jwt
 
+includes:
+  - !include common.yaml
+
 stages:
   - name: create_movie
     request: &create_movie
-      url: "{host:s}/movies"
+      url: "{host}/movies"
       method: POST
       headers:
         authorization: "JWT {jwt}"
@@ -26,6 +29,9 @@ stages:
 
 test_name: test_create_movie_422_unprocessable_entity
 
+includes:
+  - !include common.yaml
+
 marks:
   - api
   - usefixtures:
@@ -34,7 +40,7 @@ marks:
 stages:
   - name: create_movie
     request:
-      url: "{host:s}/movies"
+      url: "{host}/movies"
       method: POST
       headers:
         authorization: "JWT {jwt}"
@@ -47,6 +53,9 @@ stages:
 
 test_name: test_create_movie_401_unauthorized
 
+includes:
+  - !include common.yaml
+
 marks:
   - api
   - usefixtures:
@@ -55,7 +64,7 @@ marks:
 stages:
   - name: create_movie
     request:
-      url: "{host:s}/movies"
+      url: "{host}/movies"
       method: POST
       json: *sample_movie
     response:

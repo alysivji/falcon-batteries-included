@@ -9,7 +9,7 @@ from .exceptions import HTTPError
 from .models import User
 
 
-def find_item_by_id(db, model, id, *, worker_task=False):
+def find_by_id(db, model, id, *, worker_task=False):
     """Helper method to find item or return 404 or raise async worker error"""
     item = db.query(model).get(id)
     if not item:

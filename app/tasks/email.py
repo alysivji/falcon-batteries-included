@@ -8,13 +8,15 @@ from email.message import EmailMessage
 import smtplib
 
 from .. import db
-from ..config import OUTBOUND_EMAIL_ADDRESS, OUTBOUND_EMAIL_PASSWORD
+from ..config import OUTBOUND_EMAIL_ADDRESS, OUTBOUND_EMAIL_PASSWORD, IN_PRODUCTION
 from ..models import User
-from ..utilities import find_item_by_id
+from ..utilities import find_by_id
 
 
 def _send_email(msg):
-    # TODO do not send if we are not in production
+    if not IN_PRODUCTION:
+        return
+
     with smtplib.SMTP("smtp.gmail.com", port=587) as smtp_server:
         smtp_server.ehlo()
         smtp_server.starttls()
@@ -29,7 +31,7 @@ def send_welcome_message(user_id):
     subject = "[MovieRecommendation] New User Account Created"
     body = "You have created a new user account."
 
-    user = find_item_by_id(db=db, model=User, id=user_id, worker_task=True)
+    user = find_by_id(db=db, model=User, id=user_id, worker_task=True)
 
     msg = EmailMessage()
     msg["From"] = OUTBOUND_EMAIL_ADDRESS

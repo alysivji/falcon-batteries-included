@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import falcon
 
+from app.hooks import LoadObjectFromDB
 from app.models import User
 from app.schemas.users import users_item_schema, users_patch_schema, users_exists_schema
-from app.utilities import find_item_by_id
 from app.workflows.user import process_new_user
 
 
@@ -71,6 +71,7 @@ class UsersResource:
         resp._data = user
 
 
+@falcon.before(LoadObjectFromDB(User))
 class UsersItemResource:
     deserializers = {"patch": users_patch_schema}
     serializers = {"get": users_item_schema, "patch": users_item_schema}
@@ -94,8 +95,9 @@ class UsersItemResource:
             404:
                 description: User does not exist
         """
+        user = req._item
+
         db = req.context["db"]
-        user = find_item_by_id(db=db, model=User, id=id)
         db.session.delete(user)
         db.session.commit()
 
@@ -122,10 +124,8 @@ class UsersItemResource:
             404:
                 description: User does not exist
         """
-        db = req.context["db"]
-
         resp.status = falcon.HTTP_OK
-        resp._data = find_item_by_id(db=db, model=User, id=id)
+        resp._data = req._item
 
     def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
@@ -153,9 +153,10 @@ class UsersItemResource:
             422:
                 description: Input body formatting issue
         """
-        db = req.context["db"]
-        user = find_item_by_id(db=db, model=User, id=id)
+        user = req._item
         user.patch(req._deserialized)
+
+        db = req.context["db"]
         db.session.add(user)
         db.session.commit()
 

@@ -2,7 +2,7 @@ name: Common test information
 description: connection, variables, et al
 
 variables:
-  host: "http://api:7000"  # TODO: add functionality to pull from env
+  host: "{tavern.env_vars.API_URL}"
   test_account__first_name: Aly
   test_account__last_name: Sivji
   test_account__email: alysivji@gmail.com

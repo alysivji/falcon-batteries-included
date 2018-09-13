@@ -4,6 +4,7 @@ import falcon
 from sqlalchemy_wrapper import Paginator
 from webargs.falconparser import use_args
 
+from app.hooks import LoadObjectFromDB
 from app.models import Movie
 from app.schemas.movies import (
     movies_item_schema,
@@ -11,7 +12,6 @@ from app.schemas.movies import (
     movies_patch_schema,
     movies_query_schema,
 )
-from app.utilities import find_item_by_id
 
 
 class MoviesResource:
@@ -79,6 +79,7 @@ class MoviesResource:
         resp._data = req._deserialized
 
 
+@falcon.before(LoadObjectFromDB(Movie))
 class MoviesItemResource:
     deserializers = {"patch": movies_patch_schema}
     serializers = {"get": movies_item_schema, "patch": movies_item_schema}
@@ -102,8 +103,9 @@ class MoviesItemResource:
             404:
                 description: Movie does not exist
         """
+        movie = req._item
+
         db = req.context["db"]
-        movie = find_item_by_id(db=db, model=Movie, id=id)
         db.session.delete(movie)
         db.session.commit()
 
@@ -130,11 +132,8 @@ class MoviesItemResource:
             404:
                 description: Movie does not exist
         """
-        db = req.context["db"]
-        movie = find_item_by_id(db=db, model=Movie, id=id)
-
         resp.status = falcon.HTTP_OK
-        resp._data = movie
+        resp._data = req._item
 
     def on_patch(self, req: falcon.Request, resp: falcon.Response, id: int) -> None:
         """
@@ -162,9 +161,10 @@ class MoviesItemResource:
             422:
                 description: Input body formatting issue
         """
-        db = req.context["db"]
-        movie = find_item_by_id(db=db, model=Movie, id=id)
+        movie = req._item
         movie.patch(req._deserialized)
+
+        db = req.context["db"]
         db.session.add(movie)
         db.session.commit()
 
