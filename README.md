@@ -63,7 +63,7 @@ Movie.search("top gun", page=1, per_page=5)
 ### Documentation
 
 * [apispec](https://github.com/marshmallow-code/apispec) + [falcon-apispec](https://github.com/alysivji/falcon-apispec) to generate OpenAPI (aka Swagger) specification
-* Serve documentation with [falcon-swagger-ui](https://github.com/rdidyk/falcon-swagger-ui). Available at [http://0.0.0.0:7000/swagger](http://localhost:7000/swagger)
+* Serving [Redoc](https://github.com/Rebilly/ReDoc)-styled docs at [http://localhost:7000/swagger/redoc.html](http://localhost:7000/swagger/redoc.html)
 
 ### Full-Text Search
 
