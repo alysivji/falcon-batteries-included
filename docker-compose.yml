@@ -112,3 +112,13 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
+
+  # dev tools
+  py-spy:
+    build:
+      context: ./scripts/py-spy/
+    pid: "service:api"
+    cap_add:
+      - SYS_PTRACE
+    stdin_open: true
+    tty: true

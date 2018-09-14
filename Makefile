@@ -28,11 +28,11 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up -d api db
+	docker-compose up -d
 	make migrate-up
 
 start:
-	docker-compose start api db
+	docker-compose start
 
 stop:
 	docker-compose stop
