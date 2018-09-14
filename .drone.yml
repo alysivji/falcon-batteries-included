@@ -9,7 +9,7 @@ pipeline:
       - pip install -r requirements_dev.txt
       - black .
       - sleep 15
-      - alembic upgrade head
+      - alembic --config=./migrations/alembic.ini upgrade head
       - pytest -m "not api"
 services:
   db:
