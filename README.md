@@ -77,6 +77,17 @@ Movie.search("top gun", page=1, per_page=5)
   * Remove database from request before sending response
 * Migrations with [Alembic](http://alembic.zzzcomputing.com/en/latest/)
 
+### Profiler
+
+* Attach [py-spy](https://github.com/benfred/py-spy) to Python process to profile
+* Connect to Gunicorn process to profile web application
+  * [Gunicorn architecture](http://docs.gunicorn.org/en/stable/design.html)
+
+```console
+USAGE:
+    py-spy --duration <duration> --pid <pid> --rate <rate>
+```
+
 ### Testing
 
 * [pytest](https://docs.pytest.org/en/latest/)
