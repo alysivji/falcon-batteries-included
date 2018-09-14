@@ -28,11 +28,11 @@ build:
 	docker-compose build
 
 up:
-	docker-compose up -d api db
+	docker-compose up -d
 	make migrate-up
 
 start:
-	docker-compose start api db
+	docker-compose start
 
 stop:
 	docker-compose stop
@@ -52,14 +52,17 @@ logs:
 shell: ## Shell into web container
 	docker-compose exec api bash
 
-shell-root:  # Shell into web container as root
-	docker-compose exec -u root api bash
+shell-db: ## Shell into postgres process inside db container
+	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
 
 shell-ipython: ## Shell into ipython with falcon context
 	docker-compose exec api python /app/scripts/ipython_shell.py
 
-shell-db: ## Shell into postgres process inside db container
-	docker-compose exec db psql -w --username "sivdev_user" --dbname "sivdev"
+shell-profiler:
+	docker-compose exec profiler bash
+
+shell-root:  # Shell into web container as root
+	docker-compose exec -u root api bash
 
 migration: ## Create migrations using alembic
 	docker-compose exec api alembic revision --autogenerate -m "$(m)"

@@ -47,6 +47,7 @@ services:
   api:
     build:
       context: .
+      dockerfile: ./docker/Dockerfile
     command: ["gunicorn", "app:api", "-b", "0.0.0.0:7000", "--reload", "--timeout",  "100000"]
     environment:
       API_URL: http://api:7000
@@ -75,7 +76,7 @@ services:
   # task queue
   rq-dash:
     build:
-      context: ./scripts/rq-dashboard/
+      context: ./docker/rq-dashboard/
     environment:
       RQ_DASHBOARD_REDIS_URL: redis://redis:6379
     depends_on:
@@ -85,7 +86,7 @@ services:
     command: ["rq-dashboard"]
   rq-scheduler:
     build:
-      context: ./scripts/rq-scheduler/
+      context: ./docker/rq-scheduler/
     environment:
       RQ_REDIS_HOST: redis
       RQ_REDIS_PORT: 6379
@@ -95,6 +96,7 @@ services:
   worker:
     build:
       context: .
+      dockerfile: ./docker/Dockerfile
     environment:
       GMAIL_ADDRESS: $GMAIL_ADDRESS
       GMAIL_APPLICATION_PASSWORD: $GMAIL_APPLICATION_PASSWORD
@@ -112,3 +114,15 @@ services:
       - elasticsearch
     ports:
       - "5601:5601"
+
+  # dev tools
+  profiler:
+    build:
+      context: ./docker/py-spy/
+    pid: "service:api"
+    cap_add:
+      - SYS_PTRACE
+    volumes:
+      - ./docker/py-spy/flame-graphs:/flame-graphs
+    stdin_open: true
+    tty: true
