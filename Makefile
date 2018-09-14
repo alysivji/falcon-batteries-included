@@ -64,14 +64,14 @@ shell-profiler:
 shell-root:  # Shell into web container as root
 	docker-compose exec -u root api bash
 
-migration: ## Create migrations using alembic
-	docker-compose exec api alembic revision --autogenerate -m "$(m)"
+migration: ## Create migration
+	docker-compose exec api alembic --config=./migrations/alembic.ini revision --autogenerate -m "$(m)"
 
-migrate-up: ## Run migrations using alembic
-	docker-compose exec api alembic upgrade head
+migrate-up: ## Run migrations
+	docker-compose exec api alembic --config=./migrations/alembic.ini upgrade head
 
-migrate-down: ## Rollback migrations using alembic
-	docker-compose exec api alembic downgrade -1
+migrate-down: ## Rollback migration
+	docker-compose exec api alembic --config=./migrations/alembic.ini downgrade -1
 
 test: migrate-up
 	docker-compose exec api pytest
