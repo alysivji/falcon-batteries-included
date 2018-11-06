@@ -10,19 +10,20 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 
 - [Design](#design)
 - [Development Workflow](#development-workflow)
-    - [Getting Started](#getting-started)
-    - [Search Notes](#search-notes)
+  - [Getting Started](#getting-started)
+  - [Search Notes](#search-notes)
 - [Python Best Practices](#python-best-practices)
 - [Batteries](#batteries)
-    - [Asynchronous Task Queue](#asynchronous-task-queue)
-    - [Authentication](#authentication)
-    - [Continuous Integration, Continouous Delivery (CICD)](#continuous-integration-continouous-delivery-cicd)
-    - [Documentation](#documentation)
-    - [Full-Text Search](#full-text-search)
-    - [ORM (SQLAlchemy)](#orm-sqlalchemy)
-    - [Profiler](#profiler)
-    - [Testing](#testing)
-    - [Serialization / Deserialization](#serialization--deserialization)
+  - [Asynchronous Task Queue](#asynchronous-task-queue)
+  - [Authentication](#authentication)
+  - [Continuous Integration, Continouous Delivery (CICD)](#continuous-integration-continouous-delivery-cicd)
+  - [Documentation](#documentation)
+  - [Full-Text Search](#full-text-search)
+  - [ORM (SQLAlchemy)](#orm-sqlalchemy)
+  - [Profiler](#profiler)
+  - [Security](#security)
+  - [Serialization / Deserialization](#serialization--deserialization)
+  - [Testing](#testing)
 
 <!-- /TOC -->
 
@@ -33,6 +34,7 @@ This opinionated project demonstrates how use [Falcon](https://github.com/falcon
 > Use the best tool for the job at hand.
 
 - Most of the CRUD logic is in controllers, but if we have to do perform multiple tasks for an endpoint, a process is kicked off.
+- Took inspiration from [Twelve-Factor App](https://12factor.net/)
 
 ## Development Workflow
 
@@ -64,7 +66,6 @@ Movie.search("top gun", page=1, per_page=5)
 
 - Code Formatter: [Black](https://github.com/ambv/black)
 - Logging: [Standard Library](https://docs.python.org/3/library/logging.html)
-- Security Issue Static Analysis: [Bandit](https://github.com/PyCQA/bandit)
 - Static Type Checker: [mypy](https://mypy.readthedocs.io/en/latest/index.html)
 - Updating Dependencies: [PyUp](https://pyup.io/)
 
@@ -112,15 +113,21 @@ USAGE:
     py-spy --duration <duration> --pid <pid> --rate <rate>
 ```
 
-### Testing
+### Security
 
-- [pytest](https://docs.pytest.org/en/latest/)
-- Functional tests via [tavern](https://taverntesting.github.io/)
-  - Works locally and not in drone (currently excluded from CI check)
-  - Either write a plugin to have Tavern hit Falcon test API or use Jenkins
+- [Bandit](https://github.com/PyCQA/bandit) is a static analysis tool to find security issues
+- [10 common security gotchas in Python and how to avoid them](https://hackernoon.com/10-common-security-gotchas-in-python-and-how-to-avoid-them-e19fbe265e03)
+- [Open Web Application Security Project: 2017 Top 10](https://www.owasp.org/index.php/Top_10-2017_Top_10)
 
 ### Serialization / Deserialization
 
 - [Marshmallow](https://github.com/marshmallow-code/marshmallow) to serialize objects into JSON (response) and deserialize JSON into object (request)
 - [webargs](https://github.com/sloria/webargs) to parse requests arguments (query string)
 - [`toasted-marshmallow`](https://github.com/lyft/toasted-marshmallow) has 10x performance, investigate
+
+### Testing
+
+- [pytest](https://docs.pytest.org/en/latest/)
+- Functional tests via [tavern](https://taverntesting.github.io/)
+  - Works locally and not in drone (currently excluded from CI check)
+  - Either write a plugin to have Tavern hit Falcon test API or use Jenkins
