@@ -19,7 +19,7 @@ class MovieSchema(Schema):
 
     # Loaders
     @post_load
-    def make_user(self, data):
+    def make_movie(self, data, **kwargs):
         return Movie(**data)
 
 

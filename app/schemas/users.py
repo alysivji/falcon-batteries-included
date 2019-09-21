@@ -38,7 +38,7 @@ class UserSchema(Schema):
 
     # Loaders
     @post_load
-    def make_user(self, data):
+    def make_user(self, data, **kwargs):
         if "password" in data:
             data["password_hash"] = generate_password_hash(data.pop("password"))
         return User(**data)
