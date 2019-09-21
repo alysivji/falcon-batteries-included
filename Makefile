@@ -73,8 +73,8 @@ migrate-up: ## Run migrations
 migrate-down: ## Rollback migration
 	docker-compose exec api alembic --config=./migrations/alembic.ini downgrade -1
 
-test: migrate-up
-	docker-compose exec api pytest
+test: migrate-up  ## run tests
+	docker-compose exec api pytest $(args)
 
 test_fast:
 	docker-compose exec api pytest

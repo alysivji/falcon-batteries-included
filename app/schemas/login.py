@@ -15,7 +15,7 @@ class LoginSchema(Schema):
 
     # Loaders
     @post_load
-    def make_user(self, data):
+    def make_user(self, data, **kwargs):
         user = db.query(User).filter(User.email == data["email"]).first()
         if not user or not password_matches(data["password"], user.password_hash):
             raise HTTPError(

@@ -9,4 +9,5 @@ class SQLAlchemySessionManager:
 
     def process_response(self, req, resp, resource, req_succeeded):
         if "db" in req.context:
-            req.context.pop("db")
+            db = req.context.pop("db")
+        db.session.remove()

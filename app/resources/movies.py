@@ -184,6 +184,7 @@ class MoviesBulkResource:
             - Movie
         parameters:
             - in: body
+              name: UploadBulkMovies
               schema:
                 type: array
                 items: MovieSchema
