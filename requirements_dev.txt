@@ -2,7 +2,7 @@
 bandit==1.5.1
 black==18.6b4
 flake8==3.5.0
-ipython==6.5.0
+ipython==7.16.3
 mypy==0.620
 pdbpp==0.9.2
 pip-tools==4.1.0
